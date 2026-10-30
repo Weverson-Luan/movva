@@ -3,10 +3,10 @@
  */
 import { Text, View } from "react-native";
 
-const SingIn = () => {
+const SinginUp = () => {
   return (
     <View className="flex-1 items-center justify-center">
-      <Text>login</Text>
+      <Text>SinginUp </Text>
     </View>
   );
 };
@@ -14,4 +14,4 @@ const SingIn = () => {
 /**
  * EXPORTS
  */
-export default SingIn;
+export default SinginUp;

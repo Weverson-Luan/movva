@@ -20,6 +20,7 @@ function RootLayout() {
         <StatusBar style="dark" />
         <Stack
           screenOptions={{
+            headerShown: false,
             headerStyle: { backgroundColor: theme.background },
             headerTintColor: theme.primary,
             headerTitleStyle: { color: theme.text },
@@ -27,7 +28,9 @@ function RootLayout() {
             contentStyle: { backgroundColor: theme.background },
           }}
         >
-          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="signin" />
+          <Stack.Screen name="signin-up" />
+          <Stack.Screen name="(private)" />
         </Stack>
       </BrandProvider>
     </QueryClientProvider>

@@ -1,17 +1,19 @@
 /**
  * IMPORTS
  */
-import { router } from "expo-router";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Redirect } from "expo-router";
 
 const App = () => {
-  return (
-    <View className="flex-1 items-center justify-center">
-      <TouchableOpacity onPress={() => router.push("/singin")}>
-        <Text className="text-lg text-primary">App</Text>
-      </TouchableOpacity>
-    </View>
-  );
+  const userData = {
+    token: "ksaja",
+    name: "luan",
+  };
+
+  if (!userData.token) {
+    return <Redirect href={"/(private)/dashboard"} />;
+  }
+
+  return <Redirect href={"/signin"} />;
 };
 
 /**
