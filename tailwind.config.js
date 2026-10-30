@@ -20,6 +20,7 @@ module.exports = {
         surface: theme.surface,
         text: theme.text,
         muted: theme.muted,
+        danger: theme.danger,
       },
       fontSize: {
         sm: "14px",

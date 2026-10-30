@@ -7,6 +7,7 @@ export type Theme = {
   surface: string;
   text: string;
   muted: string;
+  danger: string;
   radius: number;
 };
 

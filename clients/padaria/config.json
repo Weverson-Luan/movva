@@ -17,6 +17,7 @@
     "surface": "#FFFFFF",
     "text": "#3E2A14",
     "muted": "#8A7560",
+    "danger": "#C0392B",
     "radius": 20
   },
   "features": {

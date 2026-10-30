@@ -116,6 +116,7 @@ React Native) usando `className`. As cores de cada cliente viram classes:
 | `surface`        | `bg-surface`                                      |
 | `text`           | `text-text`                                       |
 | `muted`          | `text-muted`                                      |
+| `danger`         | `text-danger`, `border-danger` (erros)            |
 | `radius`         | `rounded-brand`                                   |
 
 ```tsx

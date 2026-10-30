@@ -13,10 +13,11 @@
   "theme": {
     "primary": "#E63946",
     "primaryText": "#FFFFFF",
-    "background": "#FFF8F0",
+    "background": "#F5F6F8",
     "surface": "#FFFFFF",
     "text": "#1D1D1F",
     "muted": "#6B6B70",
+    "danger": "#D62828",
     "radius": 12
   },
   "features": {
