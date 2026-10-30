@@ -20,6 +20,8 @@ export type Brand = {
   client: string;
   displayName: string;
   apiUrl: string;
+  /** API local usada em desenvolvimento (__DEV__). Opcional. */
+  apiUrlDev?: string;
   supportEmail: string;
   theme: Theme;
   features: Features;

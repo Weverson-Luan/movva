@@ -8,6 +8,7 @@
   "easOwner": "",
   "easProjectId": "",
   "apiUrl": "https://api.seusistema.com.br/v1/movva",
+  "apiUrlDev": "http://localhost:3001",
   "supportEmail": "suporte@movva.com.br",
   "theme": {
     "primary": "#E63946",

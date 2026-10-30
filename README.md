@@ -47,6 +47,16 @@ CLIENT=padaria npm run config
 
 Sempre use `--clear` ao trocar de cliente, para o Metro não reaproveitar o cache do anterior.
 
+### API de cada cliente
+
+Cada `clients/<cliente>/config.json` tem duas URLs:
+
+- `apiUrl`: usada nos builds de produção.
+- `apiUrlDev`: usada em desenvolvimento (`__DEV__`), por exemplo `http://localhost:3001`.
+  O `localhost` é trocado automaticamente pelo IP do computador que roda o Metro,
+  então funciona no simulador, no emulador Android e no celular. A API local precisa
+  escutar em `0.0.0.0`, não só em `127.0.0.1`.
+
 ## Adicionar um cliente novo
 
 ```bash

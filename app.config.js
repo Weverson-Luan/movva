@@ -65,6 +65,7 @@ module.exports = ({ config }) => ({
     client,
     displayName: cfg.name,
     apiUrl: cfg.apiUrl,
+    apiUrlDev: cfg.apiUrlDev,
     theme: cfg.theme,
     features: cfg.features,
     supportEmail: cfg.supportEmail,

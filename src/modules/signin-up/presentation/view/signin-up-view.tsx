@@ -4,7 +4,7 @@
 import { KeyboardAvoidingView, Platform, Text, TextInput, View } from "react-native";
 import { useBrand, useTheme } from "@/brand/BrandProvider";
 import { BrandButton } from "@/modules/dashboard/components/BrandButton";
-import useSignInViewModel from "@/modules/signin/presentation/view-model/signin-view-model";
+import useSignInViewModel from "@/modules/signin/presentation/view-model/signin-up-view-model";
 
 const SignInView = () => {
   const { displayName } = useBrand();

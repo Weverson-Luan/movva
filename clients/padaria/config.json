@@ -8,6 +8,7 @@
   "easOwner": "",
   "easProjectId": "",
   "apiUrl": "https://api.seusistema.com.br/v1/padaria",
+  "apiUrlDev": "http://localhost:3001",
   "supportEmail": "contato@paoquente.com.br",
   "theme": {
     "primary": "#B5651D",
