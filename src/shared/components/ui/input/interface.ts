@@ -4,6 +4,7 @@
 
 import type { Ionicons } from "@expo/vector-icons";
 import type { ComponentProps } from "react";
+import type { Control, FieldValues, Path } from "react-hook-form";
 import type { TextInputProps } from "react-native";
 
 type InputProps = TextInputProps & {
@@ -13,7 +14,12 @@ type InputProps = TextInputProps & {
   isDisabled?: boolean;
 };
 
+type InputControlledProps<T extends FieldValues> = Omit<InputProps, "value" | "onChangeText" | "error"> & {
+  control: Control<T>;
+  name: Path<T>;
+};
+
 /**
  * EXPORTS
  */
-export type { InputProps };
+export type { InputControlledProps, InputProps };

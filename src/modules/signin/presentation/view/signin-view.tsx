@@ -3,8 +3,8 @@
  */
 import type { FC } from "react";
 import { KeyboardAvoidingView, Platform, Text, View } from "react-native";
+// hook de marca do cliente
 import { useBrand } from "@/brand/BrandProvider";
-
 // components
 import { BrandButton } from "@/modules/dashboard/components/BrandButton";
 // view-model - signin
@@ -21,8 +21,8 @@ const SignInView: FC<SignInViewModel> = ({ control, onSubmit, goToSignUp, isSubm
     <KeyboardAvoidingView className="flex-1 bg-background" behavior={Platform.OS === "ios" ? "padding" : undefined}>
       <View className="flex-1 justify-center gap-6 px-6">
         <View className="gap-1">
-          <Text className="text-3xl font-bold text-text">Hello World</Text>
-          <Text className="text-base text-muted">Entre na sua conta {displayName}</Text>
+          <Text className="text-3xl font-bold text-text">{displayName}</Text>
+          <Text className="text-base text-muted">Entre na sua conta.</Text>
         </View>
 
         <InputControlled
