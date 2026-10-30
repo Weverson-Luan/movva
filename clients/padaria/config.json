@@ -1,0 +1,26 @@
+{
+  "name": "Padaria Pão Quente",
+  "slug": "padaria-pao-quente",
+  "scheme": "paoquente",
+  "bundleId": "br.com.paoquente.app",
+  "version": "1.0.0",
+  "buildNumber": 1,
+  "easOwner": "",
+  "easProjectId": "",
+  "apiUrl": "https://api.seusistema.com.br/v1/padaria",
+  "supportEmail": "contato@paoquente.com.br",
+  "theme": {
+    "primary": "#B5651D",
+    "primaryText": "#FFFFFF",
+    "background": "#FBF3E4",
+    "surface": "#FFFFFF",
+    "text": "#3E2A14",
+    "muted": "#8A7560",
+    "radius": 20
+  },
+  "features": {
+    "delivery": true,
+    "chat": false,
+    "fidelidade": true
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "Movva",
+  "slug": "movva",
+  "scheme": "movva",
+  "bundleId": "com.movva.app",
+  "version": "1.0.0",
+  "buildNumber": 1,
+  "easOwner": "",
+  "easProjectId": "",
+  "apiUrl": "https://api.seusistema.com.br/v1/movva",
+  "supportEmail": "suporte@movva.com.br",
+  "theme": {
+    "primary": "#E63946",
+    "primaryText": "#FFFFFF",
+    "background": "#FFF8F0",
+    "surface": "#FFFFFF",
+    "text": "#1D1D1F",
+    "muted": "#6B6B70",
+    "radius": 12
+  },
+  "features": {
+    "delivery": true,
+    "chat": true,
+    "fidelidade": false
+  }
+}

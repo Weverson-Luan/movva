@@ -1,0 +1,6 @@
+# Formata e corrige só os arquivos que estão no commit e coloca as correções de volta no stage.
+pnpm exec biome check --write --staged --no-errors-on-unmatched --files-ignore-unknown=true
+git update-index --again
+
+# Erro de tipo não entra no repositório.
+pnpm typecheck

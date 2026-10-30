@@ -1,0 +1,49 @@
+{
+  "cli": {
+    "appVersionSource": "local"
+  },
+  "build": {
+    "base": {
+      "node": "20.18.0"
+    },
+    "development": {
+      "extends": "base",
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+
+    "movva-preview": {
+      "extends": "base",
+      "distribution": "internal",
+      "channel": "preview",
+      "env": { "CLIENT": "movva" }
+    },
+    "movva": {
+      "extends": "base",
+      "channel": "production",
+      "env": { "CLIENT": "movva" }
+    },
+
+    "padaria-preview": {
+      "extends": "base",
+      "distribution": "internal",
+      "channel": "preview",
+      "env": { "CLIENT": "padaria" }
+    },
+    "padaria": {
+      "extends": "base",
+      "channel": "production",
+      "env": { "CLIENT": "padaria" }
+    }
+  },
+  "submit": {
+    "movva": {
+      "ios": { "ascAppId": "PREENCHER", "appleTeamId": "PREENCHER" },
+      "android": { "serviceAccountKeyPath": "./clients/movva/google-service-account.json", "track": "internal" }
+    },
+    "padaria": {
+      "ios": { "ascAppId": "PREENCHER", "appleTeamId": "PREENCHER" },
+      "android": { "serviceAccountKeyPath": "./clients/padaria/google-service-account.json", "track": "internal" }
+    }
+  }
+}

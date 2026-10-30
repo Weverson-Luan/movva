@@ -1,0 +1,12 @@
+node_modules/
+.expo/
+expo-env.d.ts
+dist/
+ios/
+android/
+*.jks
+*.p8
+*.p12
+*.mobileprovision
+# Chaves das lojas de cada cliente: nunca versionar
+clients/*/google-service-account.json
