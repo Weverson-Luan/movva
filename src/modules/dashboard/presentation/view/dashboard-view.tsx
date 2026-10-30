@@ -1,8 +1,22 @@
-import { Linking, ScrollView, Text, View } from 'react-native';
-import { Feature, useBrand } from '@/brand/BrandProvider';
-import { BrandButton } from '@/modules/dashboard/components/BrandButton';
+/**
+ * IMPORTS
+ */
+import { Linking, ScrollView, Text, View } from "react-native";
+import { Feature, useBrand } from "@/brand/BrandProvider";
+import { BrandButton } from "@/modules/dashboard/components/BrandButton";
 
-export function HomeScreen() {
+type CardProps = { title: string; text: string };
+
+const Card = ({ title, text }: CardProps) => {
+  return (
+    <View className="gap-1 rounded-brand bg-surface p-4">
+      <Text className="text-[17px] font-semibold text-primary">{title}</Text>
+      <Text className="text-text">{text}</Text>
+    </View>
+  );
+};
+
+const DashboardView = () => {
   const { displayName, supportEmail, apiUrl } = useBrand();
 
   return (
@@ -25,13 +39,9 @@ export function HomeScreen() {
       <BrandButton title="Falar com o suporte" onPress={() => Linking.openURL(`mailto:${supportEmail}`)} />
     </ScrollView>
   );
-}
+};
 
-function Card({ title, text }: { title: string; text: string }) {
-  return (
-    <View className="gap-1 rounded-brand bg-surface p-4">
-      <Text className="text-[17px] font-semibold text-primary">{title}</Text>
-      <Text className="text-text">{text}</Text>
-    </View>
-  );
-}
+/**
+ * EXPORTS
+ */
+export default DashboardView;

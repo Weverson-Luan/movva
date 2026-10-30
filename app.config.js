@@ -1,17 +1,17 @@
 // Configuração dinâmica: escolhe o cliente pela variável de ambiente CLIENT.
 // Ex.: CLIENT=padaria npx expo start
-const fs = require('node:fs');
-const path = require('node:path');
+const fs = require("node:fs");
+const path = require("node:path");
 
-const client = process.env.CLIENT || 'movva';
-const clientDir = path.join(__dirname, 'clients', client);
+const client = process.env.CLIENT || "movva";
+const clientDir = path.join(__dirname, "clients", client);
 
 if (!fs.existsSync(clientDir)) {
-  const disponiveis = fs.readdirSync(path.join(__dirname, 'clients')).join(', ');
+  const disponiveis = fs.readdirSync(path.join(__dirname, "clients")).join(", ");
   throw new Error(`Cliente "${client}" não encontrado. Disponíveis: ${disponiveis}`);
 }
 
-const cfg = require(path.join(clientDir, 'config.json'));
+const cfg = require(path.join(clientDir, "config.json"));
 const asset = (file) => `./clients/${client}/${file}`;
 
 module.exports = ({ config }) => ({
@@ -21,9 +21,9 @@ module.exports = ({ config }) => ({
   owner: cfg.easOwner || undefined,
   scheme: cfg.scheme,
   version: cfg.version,
-  orientation: 'portrait',
-  icon: asset('icon.png'),
-  userInterfaceStyle: 'light',
+  orientation: "portrait",
+  icon: asset("icon.png"),
+  userInterfaceStyle: "light",
 
   ios: {
     bundleIdentifier: cfg.bundleId,
@@ -35,19 +35,19 @@ module.exports = ({ config }) => ({
     package: cfg.bundleId,
     versionCode: cfg.buildNumber,
     adaptiveIcon: {
-      foregroundImage: asset('adaptive-icon.png'),
+      foregroundImage: asset("adaptive-icon.png"),
       backgroundColor: cfg.theme.primary,
     },
   },
 
   plugins: [
-    'expo-router',
+    "expo-router",
     [
-      'expo-splash-screen',
+      "expo-splash-screen",
       {
-        image: asset('splash.png'),
+        image: asset("splash.png"),
         imageWidth: 200,
-        resizeMode: 'contain',
+        resizeMode: "contain",
         backgroundColor: cfg.theme.primary,
       },
     ],
@@ -57,7 +57,7 @@ module.exports = ({ config }) => ({
   experiments: { typedRoutes: true },
 
   // Cada cliente é um projeto EAS separado (app separado na loja).
-  runtimeVersion: { policy: 'appVersion' },
+  runtimeVersion: { policy: "appVersion" },
   updates: cfg.easProjectId ? { url: `https://u.expo.dev/${cfg.easProjectId}` } : undefined,
 
   // Tudo que o app precisa ler em tempo de execução.

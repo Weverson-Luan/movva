@@ -2,13 +2,13 @@
  * IMPORTS
  */
 
-import '../../global.css';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
+import "../../global.css";
+import { Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 
-import { BrandProvider, useTheme } from '@/brand/BrandProvider';
+import { BrandProvider, useTheme } from "@/brand/BrandProvider";
 
-import { QueryClient, QueryClientProvider } from '@/shared/libs/tanstack-query/tanstack-query';
+import { QueryClient, QueryClientProvider } from "@/shared/libs/tanstack-query/tanstack-query";
 
 const queryCliente = new QueryClient();
 

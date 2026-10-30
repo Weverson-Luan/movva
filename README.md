@@ -17,7 +17,7 @@ src/
   brand/BrandProvider.tsx  useBrand, useTheme, useFeature, <Feature>
   components/BrandButton.tsx   exemplo de componente sem cores fixas
   modules/
-    dashboard/views/HomeScreen.tsx   telas de cada módulo ficam em modules/<módulo>/views
+    dashboard/presentation/view/dashboard-view.tsx   telas de cada módulo
 app.config.js      escolhe o cliente pela variável CLIENT
 tailwind.config.js cores e raio do NativeWind, lidos do config.json do cliente
 global.css         entrada do Tailwind (importado no src/app/_layout.tsx)
@@ -85,9 +85,9 @@ As rotas ficam em `src/app/`. O nome do arquivo vira o caminho:
 | `src/app/pedidos.tsx`      | `/pedidos`     |
 | `src/app/pedidos/[id].tsx` | `/pedidos/123` |
 
-Mantenha os arquivos de rota curtos e coloque a tela em `src/modules/<módulo>/views/`
-(`export default HomeScreen`). Para navegar, use `<Link href="/pedidos">` ou
-`router.push('/pedidos')`. Os caminhos são tipados: os tipos são gerados em
+Mantenha os arquivos de rota curtos e coloque a tela em `src/modules/<módulo>/presentation/view/`
+(`export default DashboardView`). Para navegar, use `<Link href="/pedidos">` ou
+`router.push("/pedidos")`. Os caminhos são tipados: os tipos são gerados em
 `.expo/types` quando o `expo start` roda.
 
 O cabeçalho já usa as cores do cliente (definido no `_layout.tsx`). Para
@@ -139,13 +139,37 @@ o arquivo é formatado ao salvar.
 
 ## Regras do código
 
+- **Toda tela segue o mesmo padrão**: bloco `IMPORTS` no topo, componente como
+  arrow function em `const` e um único `export default` no bloco `EXPORTS`.
+  Vale para as rotas em `src/app/` e as views dos módulos.
+
+  ```tsx
+  /**
+   * IMPORTS
+   */
+  import { Text, View } from "react-native";
+
+  const SingIn = () => {
+    return (
+      <View className="flex-1 items-center justify-center">
+        <Text>login</Text>
+      </View>
+    );
+  };
+
+  /**
+   * EXPORTS
+   */
+  export default SingIn;
+  ```
+
 - **Imports entre pastas usam `@/`**, que aponta para `src/`:
-  `import { useBrand } from '@/brand/BrandProvider'`. Caminho relativo só para
+  `import { useBrand } from "@/brand/BrandProvider"`. Caminho relativo só para
   arquivos da mesma pasta (`./brand`). O alias é definido em `paths` no `tsconfig.json`.
 - **Nunca use cor fixa** em componente (nem `bg-red-500`). Use as classes do
   tema (`bg-primary`) ou, fora do `className`, `useTheme()`.
 - **Nunca faça `if (client === 'movva')`**. Crie uma feature em `features` e use
-  `useFeature('nome')` ou `<Feature name="nome">`. Ao adicionar uma feature
+  `useFeature("nome")` ou `<Feature name="nome">`. Ao adicionar uma feature
   nova, coloque-a no tipo `Features` em `src/brand/brand.ts` e em todos os
   `config.json`.
 - Textos com o nome do app vêm de `useBrand().displayName`.

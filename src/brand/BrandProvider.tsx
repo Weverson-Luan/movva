@@ -1,6 +1,6 @@
-import type React from 'react';
-import { createContext, useContext } from 'react';
-import { type Brand, brand, type Features } from './brand';
+import type React from "react";
+import { createContext, useContext } from "react";
+import { type Brand, brand, type Features } from "./brand";
 
 const BrandContext = createContext<Brand>(brand);
 

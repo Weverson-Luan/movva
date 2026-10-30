@@ -1,4 +1,4 @@
-import Constants from 'expo-constants';
+import Constants from "expo-constants";
 
 export type Theme = {
   primary: string;
@@ -29,7 +29,7 @@ export type Brand = {
 const extra = Constants.expoConfig?.extra as Brand | undefined;
 
 if (!extra?.theme) {
-  throw new Error('Configuração da marca não encontrada. Verifique o app.config.js.');
+  throw new Error("Configuração da marca não encontrada. Verifique o app.config.js.");
 }
 
 export const brand: Brand = extra;
