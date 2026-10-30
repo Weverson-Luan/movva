@@ -2,6 +2,7 @@
  * IMPORTS
  */
 import axios, { type AxiosInstance } from "axios";
+import { brand } from "@/brand/brand";
 
 class ApiHttpClient {
   private instance: AxiosInstance;
@@ -9,7 +10,9 @@ class ApiHttpClient {
 
   constructor() {
     this.instance = axios.create({
-      baseURL: "",
+      // Cada cliente tem a sua API (apiUrl no clients/<cliente>/config.json).
+      baseURL: brand.apiUrl,
+      timeout: 15000,
     });
   }
 

@@ -9,7 +9,7 @@ import useSignInViewModel from "@/modules/signin/presentation/view-model/signin-
 const SignInView = () => {
   const { displayName } = useBrand();
   const theme = useTheme();
-  const { email, password, errors, isSubmitting, changeEmail, changePassword, signIn, goToSignUp } =
+  const { email, password, errors, apiError, isSubmitting, changeEmail, changePassword, signIn, goToSignUp } =
     useSignInViewModel();
 
   return (
@@ -45,6 +45,8 @@ const SignInView = () => {
           />
           {errors.password && <Text className="text-sm text-primary">{errors.password}</Text>}
         </View>
+
+        {apiError && <Text className="text-center text-sm text-primary">{apiError}</Text>}
 
         <BrandButton title={isSubmitting ? "Entrando..." : "Entrar"} onPress={signIn} />
 

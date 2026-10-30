@@ -1,8 +1,10 @@
 /**
  * IMPORTS
  */
+import { isAxiosError } from "axios";
 import { router } from "expo-router";
 import { useState } from "react";
+import { useSignInMutation } from "@/modules/signin/presentation/hooks/queries/auth/use-signin-mutation";
 
 type SignInErrors = {
   email?: string;
@@ -22,38 +24,51 @@ const validate = (email: string, password: string): SignInErrors => {
   return errors;
 };
 
+// Converte o erro da API em uma mensagem para o usuário.
+const getErrorMessage = (error: unknown) => {
+  if (isAxiosError(error)) {
+    if (error.response?.status === 401) return "E-mail ou senha incorretos.";
+    if (!error.response) return "Sem conexão com o servidor. Tente novamente.";
+  }
+  return "Não foi possível entrar. Tente novamente.";
+};
+
 // Estado e regras da tela de login. A view só desenha o que vem daqui.
 const useSignInViewModel = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<SignInErrors>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const signInMutation = useSignInMutation();
 
-  // Ao digitar, some o erro daquele campo.
+  // Ao digitar, some o erro daquele campo e o erro da API.
   const changeEmail = (value: string) => {
     setEmail(value);
     if (errors.email) setErrors((prev) => ({ ...prev, email: undefined }));
+    signInMutation.reset();
   };
 
   const changePassword = (value: string) => {
     setPassword(value);
     if (errors.password) setErrors((prev) => ({ ...prev, password: undefined }));
+    signInMutation.reset();
   };
 
-  const signIn = async () => {
-    if (isSubmitting) return;
+  const signIn = () => {
+    if (signInMutation.isPending) return;
 
     const validation = validate(email, password);
     setErrors(validation);
     if (validation.email || validation.password) return;
 
-    setIsSubmitting(true);
-    try {
-      // TODO: chamar a API de login (useBrand().apiUrl) e guardar o token.
-      router.replace("/(private)/dashboard");
-    } finally {
-      setIsSubmitting(false);
-    }
+    signInMutation.mutate(
+      { email, password },
+      {
+        onSuccess: () => {
+          // TODO: guardar o access_token (ex.: expo-secure-store) antes de navegar.
+          router.replace("/(private)/dashboard");
+        },
+      },
+    );
   };
 
   const goToSignUp = () => {
@@ -64,7 +79,8 @@ const useSignInViewModel = () => {
     email,
     password,
     errors,
-    isSubmitting,
+    apiError: signInMutation.isError ? getErrorMessage(signInMutation.error) : undefined,
+    isSubmitting: signInMutation.isPending,
     changeEmail,
     changePassword,
     signIn,
