@@ -2,15 +2,12 @@
  * IMPORTS
  */
 import type { FC } from "react";
-import { Image, ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 // components
 import { BrandButton } from "@/modules/dashboard/components/BrandButton";
 // view-model - signin
 import type { SignInViewModel } from "@/modules/signin/presentation/view-model/signin-view-model";
-// hook de marca do cliente
-import { useBrand } from "@/shared/brand/BrandProvider";
-// imagens do cliente ativo
-import { brandAssets } from "@/shared/brand/brand-assets";
+import { BrandLogo } from "@/shared/components/ui/brand-logo";
 import { InputControlled } from "@/shared/components/ui/input/input-controlled";
 import { KeyboardContainer } from "@/shared/components/ui/keyboard-container";
 
@@ -18,8 +15,6 @@ import { KeyboardContainer } from "@/shared/components/ui/keyboard-container";
  * Tela SignInView
  */
 const SignInView: FC<SignInViewModel> = ({ control, onSubmit, goToSignUp, isSubmitting }) => {
-  const { displayName } = useBrand();
-
   return (
     <KeyboardContainer className="bg-background">
       <ScrollView
@@ -28,15 +23,7 @@ const SignInView: FC<SignInViewModel> = ({ control, onSubmit, goToSignUp, isSubm
         showsVerticalScrollIndicator={false}
       >
         <View className="items-center gap-6">
-          <View className="flex-row items-center gap-3">
-            <Image
-              source={brandAssets.loginLogo}
-              className="h-12 w-12"
-              resizeMode="contain"
-              accessibilityIgnoresInvertColors
-            />
-            <Text className="text-3xl font-bold text-text">{displayName}</Text>
-          </View>
+          <BrandLogo />
           <Text className="text-base text-muted">Entre na sua conta.</Text>
         </View>
 

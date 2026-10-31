@@ -2,27 +2,33 @@
  * IMPORTS
  */
 import type { FC } from "react";
-import { KeyboardAvoidingView, Platform, ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 
 // components
 import { BrandButton } from "@/modules/dashboard/components/BrandButton";
 // view-model - signin-up
 import type { useSigninUpViewModel } from "@/modules/signin-up/presentation/view-model/signin-up-view-model";
+import { BrandLogo } from "@/shared/components/ui/brand-logo";
 import { InputControlled } from "@/shared/components/ui/input/input-controlled";
+import { KeyboardContainer } from "@/shared/components/ui/keyboard-container";
 
 /**
  * Tela SigninUpView
  */
 const SigninUpView: FC<ReturnType<typeof useSigninUpViewModel>> = ({ control, onSubmit, isSubmitting }) => {
   return (
-    <KeyboardAvoidingView className="flex-1 bg-background" behavior={Platform.OS === "ios" ? "padding" : undefined}>
+    <KeyboardContainer className="bg-background">
       <ScrollView
         contentContainerClassName="flex-grow justify-center gap-6 px-6 py-12"
         keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
       >
-        <View className="gap-1">
-          <Text className="text-3xl font-bold text-text">Criar conta</Text>
-          <Text className="text-base text-muted">Preencha seus dados para começar</Text>
+        <View className="items-center gap-6">
+          <BrandLogo />
+          <View className="items-center gap-1">
+            <Text className="text-2xl font-bold text-text">Criar conta</Text>
+            <Text className="text-base text-muted">Preencha seus dados para começar</Text>
+          </View>
         </View>
 
         <InputControlled control={control} name="name" label="Nome" icon="person-outline" placeholder="Seu nome" />
@@ -71,7 +77,7 @@ const SigninUpView: FC<ReturnType<typeof useSigninUpViewModel>> = ({ control, on
 
         <BrandButton title={isSubmitting ? "Criando conta..." : "Criar conta"} onPress={onSubmit} />
       </ScrollView>
-    </KeyboardAvoidingView>
+    </KeyboardContainer>
   );
 };
 
