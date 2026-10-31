@@ -7,8 +7,8 @@
   "buildNumber": 1,
   "easOwner": "",
   "easProjectId": "",
-  "apiUrl": "https://api.seusistema.com.br/v1/movva",
-  "apiUrlDev": "http://localhost:3001",
+  "apiUrl": "https://api.evolviapp.com.br/api",
+  "apiUrlDev": "https://api.evolviapp.com.br/api",
   "supportEmail": "suporte@movva.com.br",
   "theme": {
     "primary": "#E63946",

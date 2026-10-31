@@ -13,7 +13,7 @@ import { InputControlled } from "@/shared/components/ui/input/input-controlled";
 /**
  * Tela SigninUpView
  */
-const SigninUpView: FC<ReturnType<typeof useSigninUpViewModel>> = ({ control, onSubmit, isSubmitting, apiError }) => {
+const SigninUpView: FC<ReturnType<typeof useSigninUpViewModel>> = ({ control, onSubmit, isSubmitting }) => {
   return (
     <KeyboardAvoidingView className="flex-1 bg-background" behavior={Platform.OS === "ios" ? "padding" : undefined}>
       <ScrollView
@@ -68,8 +68,6 @@ const SigninUpView: FC<ReturnType<typeof useSigninUpViewModel>> = ({ control, on
           autoComplete="new-password"
           onSubmitEditing={() => onSubmit()}
         />
-
-        {apiError && <Text className="text-center text-sm text-danger">{apiError}</Text>}
 
         <BrandButton title={isSubmitting ? "Criando conta..." : "Criar conta"} onPress={onSubmit} />
       </ScrollView>

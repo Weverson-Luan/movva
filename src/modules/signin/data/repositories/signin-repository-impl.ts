@@ -9,7 +9,7 @@ class SignInRepositoryImpl implements ISignInRepository {
   constructor(private readonly http: AxiosInstance) {}
 
   async signIn(params: SignInHttpParams): Promise<SignInHttpResponse> {
-    const { data } = await this.http.post<SignInHttpResponse>("/auth/login", params);
+    const { data } = await this.http.post<SignInHttpResponse>("/auth/sign-in", params);
     return data;
   }
 }

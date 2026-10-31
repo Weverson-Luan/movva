@@ -4,6 +4,7 @@
 import axios, { type AxiosInstance } from "axios";
 import Constants from "expo-constants";
 import { brand } from "@/shared/brand/brand";
+import { mapHttpError } from "./http-error-mapper";
 
 // Produção: apiUrl do cliente. Desenvolvimento: apiUrlDev do cliente
 // (clients/<cliente>/config.json). No emulador Android e no celular,
@@ -25,6 +26,12 @@ class ApiHttpClient {
       baseURL: getBaseUrl(),
       timeout: 15000,
     });
+
+    // Todo erro HTTP sai daqui já convertido em erro do domínio (AppError).
+    this.instance.interceptors.response.use(
+      (response) => response,
+      (error) => Promise.reject(mapHttpError(error)),
+    );
   }
 
   getInstance() {

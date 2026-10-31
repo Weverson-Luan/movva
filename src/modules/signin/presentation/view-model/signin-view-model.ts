@@ -2,7 +2,6 @@
  * IMPORTS
  */
 import { yupResolver } from "@hookform/resolvers/yup";
-import { isAxiosError } from "axios";
 import { router } from "expo-router";
 import { useForm } from "react-hook-form";
 
@@ -11,15 +10,6 @@ import { useSignInMutation } from "@/modules/signin/presentation/hooks/queries/a
 
 // typings / schema
 import { type SignInFormData, signInSchema } from "./signin-schema";
-
-// Converte o erro da API em uma mensagem para o usuário.
-const getErrorMessage = (error: unknown) => {
-  if (isAxiosError(error)) {
-    if (error.response?.status === 401) return "E-mail ou senha incorretos.";
-    if (!error.response) return "Sem conexão com o servidor. Tente novamente.";
-  }
-  return "Não foi possível entrar. Tente novamente.";
-};
 
 // Estado e regras da tela de login. A view só desenha o que vem daqui.
 const useSignInViewModel = () => {
@@ -33,14 +23,13 @@ const useSignInViewModel = () => {
     },
   });
 
-  const onSubmit = handleSubmit(async (signInData) => {
-    try {
-      await signInMutation.mutateAsync(signInData);
-      // TODO: guardar a sessão no useUserStore (authSignin) antes de navegar.
-      router.replace("/(private)/dashboard");
-    } catch {
-      // O erro já fica em signInMutation.error e aparece como apiError.
-    }
+  // Erro: o service já trata e a mutation mostra o toast. Aqui só o caminho de sucesso.
+  const onSubmit = handleSubmit((signInData) => {
+    signInMutation.mutate(signInData, {
+      onSuccess: () => {
+        router.replace("/(private)/dashboard");
+      },
+    });
   });
 
   const goToSignUp = () => {
@@ -52,7 +41,6 @@ const useSignInViewModel = () => {
     onSubmit,
     goToSignUp,
     isSubmitting: signInMutation.isPending,
-    apiError: signInMutation.isError ? getErrorMessage(signInMutation.error) : undefined,
   };
 };
 

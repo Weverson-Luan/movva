@@ -14,7 +14,7 @@ import { InputControlled } from "@/shared/components/ui/input/input-controlled";
 /**
  * Tela SignInView
  */
-const SignInView: FC<SignInViewModel> = ({ control, onSubmit, goToSignUp, isSubmitting, apiError }) => {
+const SignInView: FC<SignInViewModel> = ({ control, onSubmit, goToSignUp, isSubmitting }) => {
   const { displayName } = useBrand();
 
   return (
@@ -46,8 +46,6 @@ const SignInView: FC<SignInViewModel> = ({ control, onSubmit, goToSignUp, isSubm
           autoComplete="password"
           onSubmitEditing={() => onSubmit()}
         />
-
-        {apiError && <Text className="text-center text-sm text-danger">{apiError}</Text>}
 
         <BrandButton title={isSubmitting ? "Entrando..." : "Entrar"} onPress={onSubmit} />
 
