@@ -25,7 +25,16 @@ type JourneyRecordPeriod = JourneyRecord & {
 // Registro já encerrado (o próximo começou): o único que entra no histórico.
 type CompletedJourneyRecordPeriod = JourneyRecordPeriod & { endedAt: Date };
 
+type JourneySummary = {
+  /** trabalho já encerrado (min) */
+  completedWorkMinutes: number;
+  /** pausas já encerradas (min) */
+  completedBreakMinutes: number;
+  /** registro em andamento (sem fim); começou quando o anterior terminou */
+  active: JourneyRecordPeriod | null;
+};
+
 /**
  * EXPORTS
  */
-export type { CompletedJourneyRecordPeriod, JourneyRecord, JourneyRecordPeriod, JourneyRecordType };
+export type { CompletedJourneyRecordPeriod, JourneyRecord, JourneyRecordPeriod, JourneyRecordType, JourneySummary };

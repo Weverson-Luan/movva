@@ -16,6 +16,13 @@ type JourneyStatusBadgeProps = {
   label: string;
 };
 
+type WorkedDurationProps = {
+  /** trabalho já encerrado (min) */
+  baseMinutes: number;
+  /** início da atividade de trabalho em andamento (ms); null = não soma tempo corrente */
+  activeStartedAtMs: number | null;
+};
+
 type JourneyMetaItemProps = {
   icon: ComponentProps<typeof Ionicons>["name"];
   label: string;
@@ -24,4 +31,4 @@ type JourneyMetaItemProps = {
 /**
  * EXPORTS
  */
-export type { JourneyMetaItemProps, JourneyStatusBadgeProps, JourneyTodayCardProps };
+export type { JourneyMetaItemProps, JourneyStatusBadgeProps, JourneyTodayCardProps, WorkedDurationProps };

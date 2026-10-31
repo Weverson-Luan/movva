@@ -13,12 +13,14 @@ import type { JourneyTodayCardProps } from "./interface";
 import { JourneyMetaItem } from "./journey-meta-item";
 import { JourneyStatusBadge } from "./journey-status-badge";
 import { journeyTodayCardVariants } from "./journey-today-card.variants";
+import { WorkedDuration } from "./worked-duration";
 
 // "Sua jornada hoje": estado, tempo trabalhado, início/pausas e atalho para acompanhar.
 const JourneyTodayCard = ({
   status,
   statusLabel,
-  workedLabel,
+  workedBaseMinutes,
+  activeWorkStartedAtMs,
   startLabel,
   breaksLabel,
   onPressTrack,
@@ -36,10 +38,8 @@ const JourneyTodayCard = ({
       </View>
 
       <View className={styles.hero()}>
-        <View className={styles.heroTexts()} accessible accessibilityLabel={`${workedLabel} de trabalho registrado`}>
-          <Text className={styles.worked()} numberOfLines={1} adjustsFontSizeToFit>
-            {workedLabel}
-          </Text>
+        <View className={styles.heroTexts()}>
+          <WorkedDuration baseMinutes={workedBaseMinutes} activeStartedAtMs={activeWorkStartedAtMs} />
           <Text className={styles.workedCaption()}>de trabalho registrado</Text>
         </View>
         <Ionicons name="stopwatch-outline" size={HERO_ICON_SIZE} color={theme.primary} />

@@ -23,7 +23,10 @@ const formatDuration = (minutes: number) => {
   return hours > 0 ? `${hours}h ${pad(rest)}min` : `${rest}min`;
 };
 
+// 252 → "04h 12min" (card da jornada: horas com dois dígitos)
+const formatWorkedDuration = (minutes: number) => `${pad(Math.floor(minutes / 60))}h ${pad(minutes % 60)}min`;
+
 /**
  * EXPORTS
  */
-export { formatDuration, formatPeriod };
+export { formatDuration, formatPeriod, formatTime, formatWorkedDuration };

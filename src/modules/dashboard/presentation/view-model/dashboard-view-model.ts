@@ -1,17 +1,17 @@
 /**
  * IMPORTS
  */
-import { useCallback, useMemo } from "react";
-import { Linking } from "react-native";
+import { useMemo } from "react";
 import type {
   CompletedJourneyRecordPeriod,
   JourneyRecord,
   JourneyRecordType,
 } from "@/modules/dashboard/domain/models/journey-record";
 import { buildRecordHistory } from "@/modules/dashboard/domain/use-cases/build-record-history";
+import { buildRecordPeriods } from "@/modules/dashboard/domain/use-cases/build-record-periods";
+import { isBreakRecord, summarizeJourney } from "@/modules/dashboard/domain/use-cases/summarize-journey";
 import { formatDayLabel, getFirstName, getGreeting } from "@/modules/dashboard/utils/greeting";
-import { formatDuration, formatPeriod } from "@/modules/dashboard/utils/record-format";
-import { useBrand } from "@/shared/brand/BrandProvider";
+import { formatDuration, formatPeriod, formatTime } from "@/modules/dashboard/utils/record-format";
 import { useUserStore } from "@/shared/data/store/zustand/user/user-store";
 
 // Fixos até a API devolver a base do motorista, as notificações e o status da jornada.
@@ -26,21 +26,20 @@ type JourneyTodayData = {
   status: JourneyStatus;
   /** texto do selo (ex.: "Em trabalho") */
   statusLabel: string;
-  /** tempo trabalhado (ex.: "04h 12min") */
-  workedLabel: string;
-  /** ex.: "Início 07:00" */
+  /** trabalho já encerrado (min); o componente soma o tempo corrente */
+  workedBaseMinutes: number;
+  /** início da atividade de trabalho em andamento (ms) — o card conta a partir daqui; null = parado */
+  activeWorkStartedAtMs: number | null;
+  /** início da atividade em andamento = fim da anterior (ex.: "Início 10:10") */
   startLabel: string;
   /** ex.: "Pausas 30min" */
   breaksLabel: string;
 };
 
-// Fixo até existir o endpoint de jornada.
-const JOURNEY_TODAY: JourneyTodayData = {
-  status: "working",
-  statusLabel: "Em trabalho",
-  workedLabel: "04h 12min",
-  startLabel: "Início 07:00",
-  breaksLabel: "Pausas 30min",
+const JOURNEY_STATUS_LABEL: Record<JourneyStatus, string> = {
+  working: "Em trabalho",
+  paused: "Em pausa",
+  resting: "Em repouso",
 };
 
 type DaySummaryKind = "work" | "breaks" | "total";
@@ -130,8 +129,29 @@ const useDashboardViewModel = () => {
     };
   }, [userName]);
 
-  // Só registros encerrados; fim = início do próximo (regras no domínio).
-  const todayRecords = useMemo(() => buildRecordHistory(buildMockRecords(), new Date()).map(toTodayRecordItem), []);
+  // Períodos calculados uma vez (fim = início do próximo). O tempo corrente da atividade
+  // em andamento NÃO entra aqui: quem conta é o componente folha do card (useElapsedMinutes),
+  // assim a tela não re-renderiza a cada minuto.
+  const periods = useMemo(() => buildRecordPeriods(buildMockRecords(), new Date()), []);
+
+  // Só registros encerrados (regra no domínio).
+  const todayRecords = useMemo(() => buildRecordHistory(periods).map(toTodayRecordItem), [periods]);
+
+  const journeyToday = useMemo<JourneyTodayData>(() => {
+    const { completedWorkMinutes, completedBreakMinutes, active } = summarizeJourney(periods);
+    const isOnBreak = active !== null && isBreakRecord(active.type);
+    const status: JourneyStatus = active === null ? "resting" : isOnBreak ? "paused" : "working";
+
+    return {
+      status,
+      statusLabel: JOURNEY_STATUS_LABEL[status],
+      workedBaseMinutes: completedWorkMinutes,
+      activeWorkStartedAtMs: active !== null && !isOnBreak ? active.startedAt.getTime() : null,
+      // Início da atividade atual = fim da anterior (regra do domínio).
+      startLabel: `Início ${active ? formatTime(active.startedAt) : "--:--"}`,
+      breaksLabel: `Pausas ${formatDuration(completedBreakMinutes)}`,
+    };
+  }, [periods]);
 
   return {
     header: {
@@ -140,7 +160,7 @@ const useDashboardViewModel = () => {
       hasUnreadNotifications: HAS_UNREAD_NOTIFICATIONS,
     },
     welcome,
-    journeyToday: JOURNEY_TODAY,
+    journeyToday,
     daySummary: DAY_SUMMARY,
     todayRecords,
   };
