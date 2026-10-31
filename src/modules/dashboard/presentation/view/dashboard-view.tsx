@@ -4,6 +4,7 @@
 import type { FC } from "react";
 import { ScrollView, Text, View } from "react-native";
 import { BrandButton } from "@/modules/dashboard/components/BrandButton";
+import { WelcomeGreeting } from "@/modules/dashboard/components/welcome-greeting";
 // view-model - dashboard
 import type { DashboardViewModel } from "@/modules/dashboard/presentation/view-model/dashboard-view-model";
 import { Feature } from "@/shared/brand/BrandProvider";
@@ -20,12 +21,14 @@ const Card = ({ title, text }: CardProps) => {
   );
 };
 
-const DashboardView: FC<DashboardViewModel> = ({ header, apiUrl, onContactSupport }) => {
+const DashboardView: FC<DashboardViewModel> = ({ header, welcome, apiUrl, onContactSupport }) => {
   return (
     <View className="flex-1 bg-background">
       <AppHeader {...header} />
 
       <ScrollView contentContainerClassName="gap-4 p-5">
+        <WelcomeGreeting {...welcome} />
+
         <Text className="mb-2 text-[13px] text-muted">API: {apiUrl}</Text>
 
         <Feature name="delivery">

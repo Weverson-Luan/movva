@@ -21,6 +21,7 @@
     "text": "#3E2A14",
     "muted": "#8A7560",
     "danger": "#C0392B",
+    "warning": "#D98E04",
     "radius": 20
   },
   "features": {

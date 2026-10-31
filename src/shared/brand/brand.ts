@@ -8,6 +8,8 @@ export type Theme = {
   text: string;
   muted: string;
   danger: string;
+  /** atenção, não erro (ex.: perto do repouso) */
+  warning: string;
   radius: number;
 };
 
