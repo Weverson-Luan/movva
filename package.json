@@ -7,6 +7,7 @@
     "start": "expo start",
     "start:movva": "cross-env CLIENT=movva expo start --clear",
     "start:cinbal": "cross-env CLIENT=cinbal expo start --clear",
+    "device": "CLIENT=movva npx expo run:android --device",
     "config": "expo config --type public",
     "new-client": "node scripts/new-client.js",
     "build:all": "bash scripts/build-all.sh",
