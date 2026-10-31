@@ -2,7 +2,7 @@
  * IMPORTS
  */
 import type { AxiosInstance } from "axios";
-import type { ISignInRepository } from "@/modules/signin/domain/repositories/signin-repository";
+import type { ISignInRepository } from "@/modules/signin/domain/repositories/signin-repository-contract";
 import type { SignInHttpParams, SignInHttpResponse } from "@/shared/interfaces/http/signin";
 
 class SignInRepositoryImpl implements ISignInRepository {
