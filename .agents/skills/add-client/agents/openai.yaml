@@ -1,0 +1,4 @@
+interface:
+  display_name: "Movva — Add Client"
+  short_description: "Adiciona um cliente novo ao white label do Movva (config"
+  default_prompt: "Use $add-client seguindo as regras do Movva (white label) em AGENTS.md."

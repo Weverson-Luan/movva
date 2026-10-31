@@ -1,0 +1,4 @@
+interface:
+  display_name: "Movva — Create Screens"
+  short_description: "Cria uma tela do Movva (rota + View + ViewModel + schema) no padrão MVVM do projeto, com cores do tema e padrão de tela obrigatório"
+  default_prompt: "Use $create-screens seguindo as regras do Movva (white label) em AGENTS.md."

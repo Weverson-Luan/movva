@@ -1,0 +1,4 @@
+interface:
+  display_name: "Movva — Tech Lead Review"
+  short_description: "Revisa mudanças de código do app Movva (white label) contra a arquitetura em camadas, as regras de white label, dados/erros e o padrão de tela"
+  default_prompt: "Use $tech-lead-review seguindo as regras do Movva (white label) em AGENTS.md."

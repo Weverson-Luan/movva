@@ -6,7 +6,8 @@
     "useIgnoreFile": true
   },
   "files": {
-    "ignoreUnknown": true
+    "ignoreUnknown": true,
+    "includes": ["**", "!CLAUDE.md", "!AGENTS.md", "!.claude/**/*.md", "!.cursor/**/*.md", "!.agents/**/*.md"]
   },
   "formatter": {
     "enabled": true,

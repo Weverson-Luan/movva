@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "hooks": {
+    "postToolUse": [
+      {
+        "command": "node .cursor/hooks/tech-lead-audit.mjs",
+        "matcher": "Write|StrReplace|EditNotebook"
+      }
+    ],
+    "stop": [
+      {
+        "command": "node .cursor/hooks/tech-lead-audit-stop.mjs",
+        "loop_limit": 1
+      }
+    ]
+  }
+}

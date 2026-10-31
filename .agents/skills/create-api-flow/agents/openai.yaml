@@ -1,0 +1,4 @@
+interface:
+  display_name: "Movva — Create Api Flow"
+  short_description: "Cria a integração de um endpoint no Movva em camadas"
+  default_prompt: "Use $create-api-flow seguindo as regras do Movva (white label) em AGENTS.md."

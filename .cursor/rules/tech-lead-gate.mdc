@@ -1,0 +1,44 @@
+---
+description: Gate de qualidade — tech-lead em toda mudança de código feita por IA
+alwaysApply: true
+---
+
+# TECH-LEAD GATE (Cursor)
+
+Toda mudança de código gerada por IA passa pelo tech-lead antes da tarefa continuar.
+Os hooks em `.cursor/hooks/` rodam sozinhos depois de cada edição e no fim do turno,
+usando o mesmo motor do Claude Code
+(`.claude/skills/tech-lead-review/scripts/check-patterns.mjs`).
+
+# FAST-PATH
+
+Passa direto, sem revisão: texto/label, troca entre classes do tema, espaçamento —
+só em `src/modules/*/presentation/view`, `src/modules/*/components`, `src/shared/components`.
+
+Nunca passa direto: domain, data, factories, hooks, view-model, `src/app`, `clients/`,
+arquivo novo, e linha com URL/token, cor fixa, paleta padrão do Tailwind ou `client`.
+
+Critério completo: `.claude/skills/tech-lead-review/references/fast-path.md`.
+
+# GATE REPROVADO (BLOCKER/MAJOR)
+
+1. **PARE a tarefa.** Não escreva mais código de feature.
+2. Para cada achado mostre: trecho atual (`arquivo:linha`), correção proposta (diff curto)
+   e a **fonte da regra** exatamente como o hook citou.
+3. Pergunte no chat e **ESPERE** a resposta:
+   `[1] Aceitar correção` · `[2] Recusar (manter como está)` · `[3] Ajustar proposta`.
+4. Aceitar → aplique, rode o check de novo e siga.
+5. Recusar → registre o waiver e siga:
+   `node .claude/skills/tech-lead-review/scripts/check-patterns.mjs --waive <REGRA> <arquivo> "<motivo>"`
+6. Ajustar → proponha a variação e pergunte de novo.
+7. Nunca aplique nem descarte a correção sem a resposta do dev.
+
+# RODAR NA MÃO
+
+```bash
+node .claude/skills/tech-lead-review/scripts/check-patterns.mjs --git-diff
+pnpm check
+npx tsc --noEmit
+```
+
+Revisão completa: skill `tech-lead-review` e agent `movva-tech-lead`.

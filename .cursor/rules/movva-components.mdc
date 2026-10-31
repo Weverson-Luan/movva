@@ -1,0 +1,46 @@
+---
+description: Componentes reutilizáveis e estilo (NativeWind + tailwind-variants)
+globs: src/shared/components/**,src/modules/*/components/**,src/modules/*/presentation/view/**
+alwaysApply: false
+---
+
+<!-- GERADO por scripts/sync-ai.mjs a partir de .claude/rules/movva-components.md. Edite a fonte e rode: pnpm ai:sync -->
+# Onde fica
+
+- Usado por mais de um módulo → `src/shared/components/ui/<componente>/`.
+- Usado só por um módulo → `src/modules/<m>/components/`.
+- Componente de um módulo que passou a ser usado por outro: mova para `shared`.
+
+# Estrutura
+
+```txt
+src/shared/components/ui/<componente>/
+├── index.tsx              componente (export nomeado)
+├── interface.ts           props tipadas (export type)
+├── <componente>.variants.ts  estilos com tailwind-variants (tv)
+└── <componente>-controlled.tsx  (opcional) versão ligada ao react-hook-form
+```
+
+# Responsabilidade
+
+- Só recebe props e renderiza. Sem React Query, repositório, service, navegação.
+- Sem regra de negócio; callbacks prontos chegam por prop (`onPress`).
+- Props estendem a do componente nativo quando faz sentido (`TextInputProps & {...}`).
+
+# Estilo
+
+- `className` (NativeWind). Sem `StyleSheet.create`.
+- Variantes e estados com `tv()` em `*.variants.ts`; uma propriedade visual
+  por estado (ex.: `state: default | focused | error`) em vez de booleanos que
+  geram classes concorrentes.
+- Só cores do tema — ver [`movva-white-label.md`](../../.claude/rules/movva-white-label.md) § Cores e tema.
+- Cor de ícone e `placeholderTextColor`: `useTheme()`.
+- `style={{...}}` só para valor dinâmico que o Tailwind não cobre (ex.: animação).
+- API exclusiva de plataforma (ex.: `ToastAndroid`) em arquivo `.android.ts` / `.ios.ts`.
+
+# Acessibilidade
+
+- Botão de ícone: `accessibilityRole="button"` + `accessibilityLabel`.
+- Área de toque pequena: `hitSlop`.
+
+Passo a passo: skill [`create-components`](../../.claude/skills/create-components/SKILL.md).

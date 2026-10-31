@@ -1,0 +1,68 @@
+---
+description: White label — cliente, tema, config.json, URLs, storage
+globs: src/**,clients/**,app.config.js,tailwind.config.js
+alwaysApply: false
+---
+
+<!-- GERADO por scripts/sync-ai.mjs a partir de .claude/rules/movva-white-label.md. Edite a fonte e rode: pnpm ai:sync -->
+# WHITE LABEL
+
+O Movva gera **um app por cliente** a partir do mesmo código. Tudo que muda entre
+clientes vem de `clients/<cliente>/config.json`, lido pelo `app.config.js` (variável
+`CLIENT`) e exposto em runtime por `src/shared/brand` (`useBrand`, `useTheme`, `useFeature`).
+
+Pergunta de controle para toda mudança: **"isso funciona igual para um cliente que
+ainda não existe?"** Se a resposta depende do nome do cliente, está errado.
+
+---
+
+# Comportamento por cliente
+
+- Nunca `if (client === "movva")`, `brand.client !== "x"`, `switch (client)`.
+- Comportamento que varia → uma chave em `features` do `config.json` +
+  `useFeature("nome")` / `<Feature name="nome">`.
+- Feature nova entra em **todos** os `clients/*/config.json` e no tipo `Features`
+  (`src/shared/brand/brand.ts`). Cliente que não usa recebe `false`.
+- `brand.client` só serve para identificar (ex.: id do storage MMKV), nunca para decidir.
+
+# Cores e tema
+
+- Só cores do tema: `bg-primary`, `text-primary-text`, `bg-background`, `bg-surface`,
+  `text-text`, `text-muted`, `text-danger`, `rounded-brand`.
+- Proibido: hex/rgb no código (`"#fff"`, `rgba(...)`) e paleta padrão do Tailwind
+  (`bg-gray-200`, `text-white`, `border-red-500`...). Ela é igual para todo cliente.
+- Onde `className` não chega (ícone, `placeholderTextColor`, header do Stack): `useTheme()`.
+- Opacidade sobre cor do tema é permitida: `border-muted/40`.
+- Cor nova no tema: todos os `config.json` + tipo `Theme` + `tailwind.config.js`
+  (`theme.extend.colors`) + tabela do `README.md`.
+
+# Textos e marca
+
+- Nome do app vem de `useBrand().displayName`, nunca escrito no código.
+- E-mail de suporte: `useBrand().supportEmail`.
+- Ícone, splash e adaptive-icon vivem em `clients/<cliente>/`, nunca em `src/`.
+
+# API e URLs
+
+- A base da API vem do cliente: `apiUrl` (produção) e `apiUrlDev` (`__DEV__`),
+  aplicadas no axios (`src/shared/data/infra/http/axios.ts`).
+- Repositório usa só o caminho (`"/auth/sign-in"`), nunca `https://...`.
+
+# Configuração do cliente
+
+- Todos os `clients/*/config.json` têm **as mesmas chaves** (o check
+  `CLIENT_CONFIG_PARITY` compara). Valor muda, chave não.
+- Campo novo no `config.json` que o app lê em runtime: adicione também no `extra` do
+  `app.config.js` e no tipo `Brand` (`src/shared/brand/brand.ts`).
+- Cliente novo: skill [`add-client`](../../.claude/skills/add-client/SKILL.md).
+
+# Storage
+
+- Dados persistidos (MMKV) usam id por cliente — já feito em
+  `src/shared/data/storage/mmkv/mmkv-storage.ts`. Não crie outra instância sem id.
+
+---
+
+Verificação automática: `WL_CLIENT_CONDITION`, `WL_HARDCODED_COLOR`,
+`WL_TAILWIND_PALETTE`, `WL_HARDCODED_URL`, `CLIENT_CONFIG_PARITY` em
+[`check-patterns.mjs`](../../.claude/skills/tech-lead-review/scripts/check-patterns.mjs).

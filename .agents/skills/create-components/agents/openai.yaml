@@ -1,0 +1,4 @@
+interface:
+  display_name: "Movva — Create Components"
+  short_description: "Cria um componente reutilizável do Movva com NativeWind + tailwind-variants, props tipadas e só cores do tema (white label)"
+  default_prompt: "Use $create-components seguindo as regras do Movva (white label) em AGENTS.md."

@@ -1,0 +1,76 @@
+---
+description: Camada de dados — API, React Query, erros de domínio e toast.
+# Escopo (aplique ao trabalhar nestes caminhos):
+#   src/modules/*/domain/**
+#   src/modules/*/data/**
+#   src/modules/*/factory/**
+#   src/modules/*/presentation/hooks/**
+#   src/modules/*/presentation/view-model/**
+#   src/shared/data/**
+#   src/shared/domain/**
+#   src/shared/interfaces/**
+---
+
+# Onde cada coisa vive
+
+```txt
+shared/interfaces/http/<recurso>   tipos de request/response (DTO)
+modules/<m>/domain/repositories    contrato (interface I<Nome>Repository)
+modules/<m>/data/repositories      implementação: só a chamada HTTP
+modules/<m>/domain/use-cases       service: regra de negócio, normaliza entrada
+modules/<m>/factory              liga repositório + apiClient + service
+modules/<m>/presentation/hooks     React Query (useQuery / useMutation)
+modules/<m>/presentation/view-model consome o hook; nunca axios
+```
+
+| Camada                             | Pode                                      | Não pode                                         |
+| ---------------------------------- | ----------------------------------------- | ------------------------------------------------ |
+| Domínio (contrato, service, erros) | TypeScript puro                           | React, RN, axios, expo, React Query, toast       |
+| Repositório (impl)                 | `AxiosInstance` recebido no construtor    | toast, navegação, React, tratar mensagem de erro |
+| Factory                            | instanciar repositório e service          | JSX, estado                                      |
+| Hook                               | React Query, `onError: showErrorToast`    | JSX, axios direto                                |
+| ViewModel                          | hook do módulo, `router`, react-hook-form | axios, JSX, componente visual                    |
+
+- `axios` só em `src/shared/data/infra/http/**` e `src/modules/*/data/repositories/**`.
+- O `apiClient` (`@/shared/data/infra/http/axios`) já tem a base do cliente e o
+  interceptor de erro. Não crie outra instância.
+
+# React Query
+
+- Toda chamada passa por `useQuery` / `useMutation` no hook do módulo.
+- Sempre `queryKey` / `mutationKey` (ex.: `["auth", "signin"]`).
+- O service é criado **uma vez**, fora do hook: `const authService = makeAuthServiceFactory();`.
+- No ViewModel: `mutation.mutate(dados, { onSuccess })`. Evite `mutateAsync` —
+  ele lança o erro de volta e obriga `try/catch` no ViewModel.
+- Estado de carregamento para a View: `isSubmitting: mutation.isPending`.
+
+# Erros
+
+Fluxo único:
+
+```txt
+API → interceptor do axios (mapHttpError) → AppError com a mensagem do backend
+    → service relança (nunca engole) → hook onError: showErrorToast
+```
+
+- A mensagem mostrada é a do backend (`{ "message": "..." }`). Não reescreva no app.
+- Classes em `@/shared/domain/errors`: `BadRequestError` (400), `UnauthorizedError` (401),
+  `ForbiddenError` (403), `NotFoundError` (404), `UnprocessableEntityError` (422),
+  `NetworkError`, `UnexpectedError`.
+- Service: `try/catch` que **relança** — `throw error instanceof AppError ? error : new UnexpectedError();`.
+- Para reagir a um tipo: `error instanceof UnauthorizedError`. Nunca `isAxiosError`
+  fora de `src/shared/data/infra/http/`.
+- Toast só na apresentação (hook ou ViewModel), via `@/shared/utils/toast`.
+- `catch {}` vazio é proibido.
+
+# Sessão e persistência
+
+- Estado global do usuário: `useUserStore` (zustand + persist com MMKV).
+- Estado de tela: no ViewModel. `useState` só para UI temporária.
+
+---
+
+Verificação automática: `VIEWMODEL_HTTP`, `DOMAIN_FRAMEWORK`, `REPOSITORY_UI`,
+`AXIOS_OUTSIDE_DATA`, `AXIOS_ERROR_OUTSIDE_MAPPER`, `TOAST_OUTSIDE_PRESENTATION`,
+`SWALLOWED_ERROR`, `MUTATE_ASYNC_IN_VIEWMODEL`.
+Passo a passo: skill [`create-api-flow`](../skills/create-api-flow/SKILL.md).

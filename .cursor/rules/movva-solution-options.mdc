@@ -1,0 +1,70 @@
+---
+description: Apresentar no mínimo duas abordagens antes de implementar
+alwaysApply: true
+---
+
+<!-- GERADO por scripts/sync-ai.mjs a partir de .claude/rules/movva-solution-options.md. Edite a fonte e rode: pnpm ai:sync -->
+# SOLUTION OPTIONS (opções antes de implementar)
+
+Objetivo: o dev **escolhe** a abordagem e entende o porquê — não só recebe código.
+Tarefa de implementação começa expondo **no mínimo duas formas** de fazer, com o
+impacto de cada uma, antes de escrever código.
+
+# QUANDO APLICAR
+
+Tarefa que gere ou altere código com mais de um caminho razoável:
+
+- Criar tela, componente, hook, repositório, service
+- Corrigir bug com mais de uma causa possível
+- Refatorar
+- Integrar API, cache, persistência, feature por cliente
+
+# QUANDO NÃO APLICAR
+
+- Fast-path: mudança só de texto, classe de tema ou espaçamento, sem lógica
+- O dev já disse **qual** abordagem quer
+- Correção de achado do gate do tech-lead (protocolo próprio no `CLAUDE.md`)
+- Só existe um jeito que respeita os padrões
+- Pergunta/explicação sem mudança de código
+
+# COMO APRESENTAR
+
+1. **Leia o código antes** — cite arquivos e padrões reais do Movva, nada genérico.
+2. **Mínimo 2 opções reais**, todas respeitando o fluxo do `CLAUDE.md` § Arquitetura.
+   Opção que quebra camada ou white label não é opção. Não invente opção ruim para fazer número.
+3. **Compare pelo impacto**, só nos eixos que mudam entre as opções:
+
+   | Eixo           | Pergunta                                                                        |
+   | -------------- | ------------------------------------------------------------------------------- |
+   | White label    | Funciona igual para um cliente que ainda não existe? Exige mudar `config.json`? |
+   | Arquitetura    | Em qual camada fica? Cria acoplamento novo?                                     |
+   | Nativo         | Precisa de `prebuild` / build novo? Funciona no Expo Go?                        |
+   | Performance    | Re-render, requisições, tamanho de lista                                        |
+   | Esforço / diff | Quantos arquivos, risco de regressão                                            |
+   | Evolução       | Escala para o próximo caso? Vira padrão reutilizável?                           |
+
+4. **Recomende uma** e diga por quê, neste contexto.
+5. **Explique o conceito** que separa as opções em uma ou duas frases.
+6. **Pergunte com `AskUserQuestion`** — recomendada primeiro com `(Recomendado)`;
+   use `preview` com trecho curto de código quando ajudar. Não escreva código antes da resposta.
+
+Rodando como subagente (sem `AskUserQuestion`): devolva as opções no relatório e não implemente.
+
+# FORMATO
+
+```markdown
+## Opções para <tarefa>
+
+### A) <nome curto> (Recomendado)
+
+- Como: <1–3 linhas, com arquivos/camadas>
+- Impacto: <só os eixos que diferem>
+
+### B) <nome curto>
+
+- Como: ...
+- Impacto: ...
+
+**Por que A aqui:** <motivo ligado ao contexto>
+**Conceito:** <princípio que separa as opções>
+```
