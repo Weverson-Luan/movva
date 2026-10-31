@@ -7,6 +7,7 @@ import type { ImageSourcePropType } from "react-native";
 import { useBrand } from "@/shared/brand/BrandProvider";
 import { brandAssets } from "@/shared/brand/brand-assets";
 import { useAppStore } from "@/shared/data/store/zustand/app/app-store";
+import { useNextEntryRoute } from "@/shared/hooks/use-next-entry-route";
 
 type OnboardingSlideItem = {
   key: string;
@@ -18,6 +19,7 @@ type OnboardingSlideItem = {
 const useOnboardingViewModel = () => {
   const { onboarding } = useBrand();
   const completeOnboarding = useAppStore((state) => state.completeOnboarding);
+  const nextEntryRoute = useNextEntryRoute();
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // Textos do config.json + imagem do cliente na mesma posição (logo se faltar).
@@ -35,8 +37,8 @@ const useOnboardingViewModel = () => {
 
   const finish = useCallback(() => {
     completeOnboarding();
-    router.replace("/sync");
-  }, [completeOnboarding]);
+    router.replace(nextEntryRoute());
+  }, [completeOnboarding, nextEntryRoute]);
 
   const onNext = useCallback(() => {
     if (isLastSlide) {

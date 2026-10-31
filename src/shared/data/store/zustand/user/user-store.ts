@@ -18,8 +18,8 @@ const useUserStore = create<UserStore>()(
       token: null,
       refreshToken: null,
 
-      authSignin: (sessionData) => {
-        set({ ...sessionData });
+      authSignin: ({ user, token, refreshToken }) => {
+        set({ user, token, refreshToken: refreshToken ?? null });
       },
       updateTokens: (updateTokensParams) => {
         set({ ...updateTokensParams });

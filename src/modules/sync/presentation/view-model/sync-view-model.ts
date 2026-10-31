@@ -4,6 +4,7 @@
 import { router } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
 import { useAppStore } from "@/shared/data/store/zustand/app/app-store";
+import { useNextEntryRoute } from "@/shared/hooks/use-next-entry-route";
 
 type SyncStepStatus = "pending" | "running" | "done";
 
@@ -24,6 +25,7 @@ const STEP_DURATION_MS = 1200;
 
 const useSyncViewModel = () => {
   const completeSync = useAppStore((state) => state.completeSync);
+  const nextEntryRoute = useNextEntryRoute();
   const [completedSteps, setCompletedSteps] = useState(0);
 
   // Por enquanto só a tela: cada etapa é simulada com um timer.
@@ -42,8 +44,8 @@ const useSyncViewModel = () => {
 
   const onContinue = useCallback(() => {
     completeSync();
-    router.replace("/signin");
-  }, [completeSync]);
+    router.replace(nextEntryRoute());
+  }, [completeSync, nextEntryRoute]);
 
   return {
     steps,

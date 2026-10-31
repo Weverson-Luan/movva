@@ -8,12 +8,17 @@ import { useForm } from "react-hook-form";
 // mutation / signin
 import { useSignInMutation } from "@/modules/signin/presentation/hooks/queries/auth/use-signin-mutation";
 
+import { useUserStore } from "@/shared/data/store/zustand/user/user-store";
+import { useNextEntryRoute } from "@/shared/hooks/use-next-entry-route";
+
 // typings / schema
 import { type SignInFormData, signInSchema } from "./signin-schema";
 
 // Estado e regras da tela de login. A view só desenha o que vem daqui.
 const useSignInViewModel = () => {
   const signInMutation = useSignInMutation();
+  const authSignin = useUserStore((state) => state.authSignin);
+  const nextEntryRoute = useNextEntryRoute();
 
   const { control, handleSubmit } = useForm<SignInFormData>({
     resolver: yupResolver(signInSchema),
@@ -26,8 +31,10 @@ const useSignInViewModel = () => {
   // Erro: o service já trata e a mutation mostra o toast. Aqui só o caminho de sucesso.
   const onSubmit = handleSubmit((signInData) => {
     signInMutation.mutate(signInData, {
-      onSuccess: () => {
-        router.replace("/(private)/dashboard");
+      // Grava a sessão e segue o fluxo de entrada (onboarding e sync na primeira vez).
+      onSuccess: ({ access_token, user }) => {
+        authSignin({ user, token: access_token });
+        router.replace(nextEntryRoute());
       },
     });
   });

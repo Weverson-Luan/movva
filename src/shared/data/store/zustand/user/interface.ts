@@ -7,7 +7,8 @@ import type { UserInterface } from "@/shared/interfaces/http/user";
 interface SetSessionParams {
   user: UserInterface;
   token: string;
-  refreshToken: string;
+  /** opcional: o login ainda não devolve refresh token */
+  refreshToken?: string;
 }
 
 interface UpdateTokensParams {
