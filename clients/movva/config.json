@@ -10,6 +10,8 @@
   "apiUrl": "https://api.evolviapp.com.br/api",
   "apiUrlDev": "https://api.evolviapp.com.br/api",
   "supportEmail": "suporte@movva.com.br",
+  "tagline": "Transporte pesado, simplificado.",
+  "loaderIcon": "truck-fast",
   "brandBackground": "#000000",
   "theme": {
     "primary": "#E63946",
@@ -24,6 +26,23 @@
   "features": {
     "delivery": true,
     "chat": true,
-    "fidelidade": false
+    "fidelidade": false,
+    "onboarding": true
+  },
+  "onboarding": {
+    "slides": [
+      {
+        "title": "Transporte pesado, simplificado",
+        "description": "Controle a jornada de trabalho do motorista com menos esforço."
+      },
+      {
+        "title": "Acompanhe cada movimento",
+        "description": "Registre abastecimentos, manutenções e lavagens do veículo em poucos toques."
+      },
+      {
+        "title": "Tudo em um só lugar",
+        "description": "Check-list do veículo, jornada, abastecimento e sua assinatura mensal em uma única experiência."
+      }
+    ]
   }
 }

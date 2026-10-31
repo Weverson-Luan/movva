@@ -37,6 +37,11 @@ O script (`scripts/new-client.js`) copia o cliente base, ajusta `name`, `slug`,
 | `icon.png`          | 1024×1024, sem transparência                            |
 | `adaptive-icon.png` | 1024×1024, conteúdo no centro (fundo = `brandBackground`) |
 | `splash.png`        | logo, fundo transparente (fundo = `brandBackground`)    |
+| `logo.png`          | logo da splash animada, sobre o `theme.background`     |
+| `onboarding/1..3.png` | ilustração de cada slide (textos em `onboarding.slides`) |
+
+Textos de abertura no `config.json`: `tagline`, `loaderIcon` (nome do MaterialCommunityIcons)
+e `onboarding.slides` (um por imagem). Sem onboarding: `features.onboarding: false`.
 
 ### 4. Projeto EAS e lojas
 

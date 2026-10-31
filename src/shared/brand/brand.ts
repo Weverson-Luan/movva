@@ -15,6 +15,12 @@ export type Features = {
   delivery: boolean;
   chat: boolean;
   fidelidade: boolean;
+  onboarding: boolean;
+};
+
+export type OnboardingSlide = {
+  title: string;
+  description: string;
 };
 
 export type Brand = {
@@ -24,6 +30,12 @@ export type Brand = {
   /** API local usada em desenvolvimento (__DEV__). Opcional. */
   apiUrlDev?: string;
   supportEmail: string;
+  /** Frase curta abaixo do nome na splash. */
+  tagline: string;
+  /** Ícone do MaterialCommunityIcons que anda na barra de carregamento da splash. */
+  loaderIcon: string;
+  /** Textos do onboarding; a imagem de cada slide vem de clients/<cliente>/onboarding/<n>.png. */
+  onboarding: { slides: OnboardingSlide[] };
   theme: Theme;
   features: Features;
 };

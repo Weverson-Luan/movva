@@ -71,6 +71,9 @@ module.exports = ({ config }) => ({
     theme: cfg.theme,
     features: cfg.features,
     supportEmail: cfg.supportEmail,
+    tagline: cfg.tagline,
+    loaderIcon: cfg.loaderIcon,
+    onboarding: cfg.onboarding,
     eas: cfg.easProjectId ? { projectId: cfg.easProjectId } : undefined,
   },
 });

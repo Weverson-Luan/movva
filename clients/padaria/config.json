@@ -10,6 +10,8 @@
   "apiUrl": "https://api.seusistema.com.br/v1/padaria",
   "apiUrlDev": "http://localhost:3001",
   "supportEmail": "contato@paoquente.com.br",
+  "tagline": "Pão quentinho a qualquer hora.",
+  "loaderIcon": "bread-slice",
   "brandBackground": "#B5651D",
   "theme": {
     "primary": "#B5651D",
@@ -24,6 +26,23 @@
   "features": {
     "delivery": true,
     "chat": false,
-    "fidelidade": true
+    "fidelidade": true,
+    "onboarding": true
+  },
+  "onboarding": {
+    "slides": [
+      {
+        "title": "Pão quentinho todo dia",
+        "description": "Escolha seus favoritos e receba fresquinho em casa."
+      },
+      {
+        "title": "Acompanhe seu pedido",
+        "description": "Saiba em tempo real quando a sua fornada sai para entrega."
+      },
+      {
+        "title": "Ganhe com a fidelidade",
+        "description": "Junte pontos a cada compra e troque por delícias da casa."
+      }
+    ]
   }
 }

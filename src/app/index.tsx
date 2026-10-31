@@ -1,22 +1,16 @@
 /**
  * IMPORTS
  */
-import { Redirect } from "expo-router";
+import SplashView from "@/modules/splash/presentation/view/splash-view";
+import { useSplashViewModel } from "@/modules/splash/presentation/view-model/splash-view-model";
 
-const App = () => {
-  const userData = {
-    token: "ksaja",
-    name: "luan",
-  };
-
-  if (!userData.token) {
-    return <Redirect href={"/(private)/dashboard"} />;
-  }
-
-  return <Redirect href={"/signin"} />;
+// A rota liga o view-model à view: a view só recebe props.
+const Splash = () => {
+  const viewModel = useSplashViewModel();
+  return <SplashView {...viewModel} />;
 };
 
 /**
  * EXPORTS
  */
-export default App;
+export default Splash;
