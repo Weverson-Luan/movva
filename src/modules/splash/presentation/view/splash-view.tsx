@@ -22,6 +22,7 @@ import type { SplashViewModel } from "@/modules/splash/presentation/view-model/s
 import { useBrand, useTheme } from "@/shared/brand/BrandProvider";
 // marca do cliente
 import { brandAssets } from "@/shared/brand/brand-assets";
+import { Screen } from "@/shared/components/ui/screen";
 
 type IconName = ComponentProps<typeof MaterialCommunityIcons>["name"];
 
@@ -104,7 +105,7 @@ const SplashView: FC<SplashViewModel> = (props) => {
   const { displayName, tagline } = useBrand();
 
   return (
-    <View className="flex-1 items-center justify-between bg-background px-8 pb-20">
+    <Screen contentClassName="items-center justify-between px-8 pb-4">
       <View className="flex-1 items-center justify-center gap-6">
         <View className="h-40 w-40 items-center justify-center">
           <LogoPulse />
@@ -131,7 +132,7 @@ const SplashView: FC<SplashViewModel> = (props) => {
       </View>
 
       <BrandLoader {...props} />
-    </View>
+    </Screen>
   );
 };
 

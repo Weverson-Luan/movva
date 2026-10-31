@@ -374,6 +374,14 @@ const RULES = [
     source: `${S.standards} § Logs`,
   },
   {
+    id: "SAFE_AREA_OUTSIDE_SCREEN",
+    severity: "MINOR",
+    applies: (c) => c.isView || /^src\/modules\/[^/]+\/components\//.test(c.rel),
+    line: /\buseSafeAreaInsets\b|<SafeAreaView\b|<KeyboardAvoidingView\b/,
+    message: "Área segura/teclado manual na tela — use `<Screen>` (edges, scroll, keyboard)",
+    source: `${S.claude} § Padrão de tela (obrigatório)`,
+  },
+  {
     id: "COMPONENT_PROPS_INLINE",
     severity: "MINOR",
     applies: (c) => c.isComponent && /\.tsx$/.test(c.base),
@@ -535,6 +543,16 @@ const FILE_RULES = [
       if (/export\s+(default\s+)?function\b/.test(text)) missing.push("sem `export function` (use const arrow)");
       return missing.length ? [{ message: `Fora do padrão de tela: ${missing.join("; ")}` }] : [];
     },
+    source: `${S.claude} § Padrão de tela (obrigatório)`,
+  },
+  {
+    id: "SCREEN_SAFE_AREA",
+    severity: "MAJOR",
+    applies: (c) => c.isView && /\.tsx$/.test(c.base),
+    check: (text) =>
+      /<Screen[\s>]/.test(text)
+        ? []
+        : [{ message: "Tela sem `<Screen>` na raiz — área segura e respiro da base ficam desprotegidos" }],
     source: `${S.claude} § Padrão de tela (obrigatório)`,
   },
   {

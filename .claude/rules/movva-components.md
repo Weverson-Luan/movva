@@ -54,11 +54,16 @@ src/shared/components/ui/<componente>/      (ou src/modules/<m>/components/<comp
 - `style={{...}}` só para valor dinâmico que o Tailwind não cobre (ex.: animação).
 - API exclusiva de plataforma (ex.: `ToastAndroid`) em arquivo `.android.ts` / `.ios.ts`.
 
+# Área segura
+
+- Só o `Screen` (raiz de toda tela) e o `AppHeader` (topo) lidam com área segura.
+- Componente de módulo e View não usam `useSafeAreaInsets`/`SafeAreaView`.
+
 # Acessibilidade
 
 - Botão de ícone: `accessibilityRole="button"` + `accessibilityLabel`.
 - Área de toque pequena: `hitSlop`.
 
-Verificação automática: `COMPONENT_FOLDER`, `COMPONENT_PROPS_INLINE`, `COMPONENT_TV_INLINE`,
+Verificação automática: `SCREEN_SAFE_AREA`, `SAFE_AREA_OUTSIDE_SCREEN`, `COMPONENT_FOLDER`, `COMPONENT_PROPS_INLINE`, `COMPONENT_TV_INLINE`,
 `STYLESHEET`, `INLINE_STYLE`, `COMPONENT_BUSINESS`.
 Passo a passo: skill [`create-components`](../skills/create-components/SKILL.md).

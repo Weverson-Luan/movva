@@ -11,7 +11,6 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 // components
 import { SyncHero } from "@/modules/sync/components/sync-hero";
 import { SyncStepRow } from "@/modules/sync/components/sync-step-row";
@@ -20,6 +19,7 @@ import type { SyncViewModel } from "@/modules/sync/presentation/view-model/sync-
 // marca do cliente
 import { useBrand } from "@/shared/brand/BrandProvider";
 import { Button } from "@/shared/components/ui/button";
+import { Screen } from "@/shared/components/ui/screen";
 
 /**
  * Barra de progresso que desliza até o valor novo.
@@ -50,13 +50,9 @@ const SyncProgressBar = ({ progress }: Pick<SyncViewModel, "progress">) => {
  */
 const SyncView: FC<SyncViewModel> = ({ steps, progress, isDone, onContinue }) => {
   const { displayName } = useBrand();
-  const insets = useSafeAreaInsets();
 
   return (
-    <View
-      className="flex-1 justify-between bg-background px-6"
-      style={{ paddingTop: insets.top + 24, paddingBottom: insets.bottom + 16 }}
-    >
+    <Screen contentClassName="justify-between px-6 pt-6">
       <View className="items-center gap-4">
         <SyncHero isDone={isDone} />
 
@@ -88,7 +84,7 @@ const SyncView: FC<SyncViewModel> = ({ steps, progress, isDone, onContinue }) =>
           </Animated.View>
         )}
       </View>
-    </View>
+    </Screen>
   );
 };
 

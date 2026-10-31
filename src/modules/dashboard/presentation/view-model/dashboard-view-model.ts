@@ -3,7 +3,14 @@
  */
 import { useCallback, useMemo } from "react";
 import { Linking } from "react-native";
+import type {
+  CompletedJourneyRecordPeriod,
+  JourneyRecord,
+  JourneyRecordType,
+} from "@/modules/dashboard/domain/models/journey-record";
+import { buildRecordHistory } from "@/modules/dashboard/domain/use-cases/build-record-history";
 import { formatDayLabel, getFirstName, getGreeting } from "@/modules/dashboard/utils/greeting";
+import { formatDuration, formatPeriod } from "@/modules/dashboard/utils/record-format";
 import { useBrand } from "@/shared/brand/BrandProvider";
 import { useUserStore } from "@/shared/data/store/zustand/user/user-store";
 
@@ -54,6 +61,47 @@ const DAY_SUMMARY: DaySummaryItem[] = [
   { key: "total", label: "Total trabalho", value: "03:30" },
 ];
 
+type TodayRecordType = JourneyRecordType;
+
+type TodayRecordSyncStatus = "synced" | "pending";
+
+type TodayRecordItem = {
+  key: string;
+  /** tipo do registro; a view escolhe o ícone por aqui */
+  type: TodayRecordType;
+  title: string;
+  /** início às fim (ex.: "21/10/2026 09:30 às 21/10/2026 11:00"); fim = início do próximo */
+  periodLabel: string;
+  /** envio ao servidor; a view mostra o selo (Sincronizada / Pendente) */
+  syncStatus: TodayRecordSyncStatus;
+  /** ex.: "2h 02min" */
+  durationLabel: string;
+};
+
+// Mock até existir o endpoint de registros: só o início de cada um (hoje, horário fixo).
+// Fim e duração saem da regra de domínio (buildRecordPeriods).
+const todayAt = (hours: number, minutes: number) => {
+  const date = new Date();
+  date.setHours(hours, minutes, 0, 0);
+  return date;
+};
+
+const buildMockRecords = (): JourneyRecord[] => [
+  { id: "record-1", type: "clock-in", title: "Operação com veículo", startedAt: todayAt(7, 0), isSynced: true },
+  { id: "record-2", type: "meal", title: "Refeição", startedAt: todayAt(9, 40), isSynced: false },
+  { id: "record-3", type: "operation", title: "Operação com veículo", startedAt: todayAt(10, 10), isSynced: false },
+];
+
+// Registro encerrado (domínio) → linha da timeline (texto pronto).
+const toTodayRecordItem = (period: CompletedJourneyRecordPeriod): TodayRecordItem => ({
+  key: period.id,
+  type: period.type,
+  title: period.title,
+  periodLabel: formatPeriod(period.startedAt, period.endedAt),
+  syncStatus: period.isSynced ? "synced" : "pending",
+  durationLabel: formatDuration(period.durationMinutes),
+});
+
 type WelcomeGreetingTone = "default" | "warning";
 
 type WelcomeGreetingData = {
@@ -69,7 +117,6 @@ type WelcomeGreetingData = {
 
 // Estado da tela inicial. A view só desenha o que vem daqui.
 const useDashboardViewModel = () => {
-  const { supportEmail, apiUrl } = useBrand();
   const userName = useUserStore((state) => state.user?.name ?? "");
 
   const welcome = useMemo<WelcomeGreetingData>(() => {
@@ -83,9 +130,8 @@ const useDashboardViewModel = () => {
     };
   }, [userName]);
 
-  const onContactSupport = useCallback(() => {
-    void Linking.openURL(`mailto:${supportEmail}`);
-  }, [supportEmail]);
+  // Só registros encerrados; fim = início do próximo (regras no domínio).
+  const todayRecords = useMemo(() => buildRecordHistory(buildMockRecords(), new Date()).map(toTodayRecordItem), []);
 
   return {
     header: {
@@ -96,8 +142,7 @@ const useDashboardViewModel = () => {
     welcome,
     journeyToday: JOURNEY_TODAY,
     daySummary: DAY_SUMMARY,
-    apiUrl,
-    onContactSupport,
+    todayRecords,
   };
 };
 
@@ -112,6 +157,9 @@ export type {
   DaySummaryKind,
   JourneyStatus,
   JourneyTodayData,
+  TodayRecordItem,
+  TodayRecordSyncStatus,
+  TodayRecordType,
   WelcomeGreetingData,
   WelcomeGreetingTone,
 };

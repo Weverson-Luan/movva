@@ -56,6 +56,9 @@ export default SingIn;
 - Componente como arrow function em `const`, com `return` explícito.
 - Um único `export default` no bloco EXPORTS; nada de `export function`.
 - Componentes auxiliares da tela também são `const` arrow, declarados antes da tela.
+- **Raiz da View é sempre `<Screen>`** (`@/shared/components/ui/screen`): área segura (status
+  bar e barra de navegação) com o mesmo respiro em todas as telas. `scroll` para conteúdo que
+  rola, `keyboard` para formulário, `header` para cabeçalho fixo. Sem insets manuais na tela.
 
 # Outras regras
 

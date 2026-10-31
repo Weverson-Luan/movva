@@ -130,22 +130,21 @@ Recebe tudo por props. Padrão de tela obrigatório (`CLAUDE.md`).
  * IMPORTS
  */
 import type { FC } from "react";
-import { KeyboardAvoidingView, Platform, Text, View } from "react-native";
+import { Text } from "react-native";
 import type { SignInViewModel } from "@/modules/signin/presentation/view-model/signin-view-model";
 import { useBrand } from "@/shared/brand/BrandProvider";
 import { InputControlled } from "@/shared/components/ui/input/input-controlled";
+import { Screen } from "@/shared/components/ui/screen";
 
 const SignInView: FC<SignInViewModel> = ({ control, onSubmit, isSubmitting }) => {
   const { displayName } = useBrand();
 
   return (
-    <KeyboardAvoidingView className="flex-1 bg-background" behavior={Platform.OS === "ios" ? "padding" : undefined}>
-      <View className="flex-1 justify-center gap-6 px-6">
-        <Text className="text-3xl font-bold text-text">{displayName}</Text>
-        <InputControlled control={control} name="email" label="E-mail" icon="mail-outline" />
-        {/* ... */}
-      </View>
-    </KeyboardAvoidingView>
+    <Screen keyboard scroll contentClassName="justify-center gap-6 px-6 py-12">
+      <Text className="text-3xl font-bold text-text">{displayName}</Text>
+      <InputControlled control={control} name="email" label="E-mail" icon="mail-outline" />
+      {/* ... */}
+    </Screen>
   );
 };
 
@@ -159,7 +158,12 @@ Regras:
 
 - Só classes do tema (`bg-background`, `text-text`, `text-muted`, `text-primary`, `text-danger`).
 - Nome do app: `useBrand().displayName`. `useBrand`/`useTheme` são permitidos na View (são marca, não dados).
-- Formulário com `InputControlled`; teclado com `KeyboardAvoidingView`; lista longa com `ScrollView`/`FlatList`.
+- **Raiz sempre `<Screen>`** (`@/shared/components/ui/screen`): fundo do tema + área segura com o
+  mesmo respiro em todas as telas. Nunca `useSafeAreaInsets`/`SafeAreaView`/`KeyboardAvoidingView` na View.
+  - Conteúdo que rola: `<Screen scroll>`. Formulário: `<Screen keyboard scroll>`.
+  - Tela com cabeçalho fixo: `<Screen header={<AppHeader ... />} scroll>` (o header protege o topo).
+  - Layout do conteúdo em `contentClassName` (gap, padding horizontal, `justify-*`).
+- Formulário com `InputControlled`; lista longa com `ScrollView`/`FlatList` dentro do `Screen`.
 - Comportamento por cliente: `<Feature name="...">`, nunca `if (client ...)`.
 - Componente auxiliar: `const` arrow declarado antes da tela; se repetir em outra tela, extraia (skill `create-components`).
 
@@ -169,5 +173,6 @@ Regras:
 - [ ] View tipada com `FC<XViewModel>`, sem hook de dados
 - [ ] Padrão IMPORTS/EXPORTS, `export default` único, sem `export function`
 - [ ] Só cores do tema
+- [ ] Raiz `<Screen>` (área segura); conteúdo que rola com `scroll`, formulário com `keyboard`
 - [ ] Rota registrada no `Stack` do `_layout` correspondente, se precisar de opção específica
 - [ ] `pnpm check`, `npx tsc --noEmit`, check do tech-lead

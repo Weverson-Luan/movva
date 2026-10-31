@@ -10,7 +10,6 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from "react-native-reanimated";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 // components
 import { OnboardingSlide } from "@/modules/onboarding/components/onboarding-slide";
 import { PaginationDots } from "@/modules/onboarding/components/pagination-dots";
@@ -20,6 +19,7 @@ import type {
   OnboardingViewModel,
 } from "@/modules/onboarding/presentation/view-model/onboarding-view-model";
 import { Button } from "@/shared/components/ui/button";
+import { Screen } from "@/shared/components/ui/screen";
 
 /**
  * Tela OnboardingView
@@ -33,7 +33,6 @@ const OnboardingView: FC<OnboardingViewModel> = ({
   onSkip,
 }) => {
   const { width } = useWindowDimensions();
-  const insets = useSafeAreaInsets();
   const listRef = useRef<FlatList<OnboardingSlideItem>>(null);
   const scrollX = useSharedValue(0);
 
@@ -53,7 +52,7 @@ const OnboardingView: FC<OnboardingViewModel> = ({
   }));
 
   return (
-    <View className="flex-1 bg-background" style={{ paddingTop: insets.top, paddingBottom: insets.bottom + 16 }}>
+    <Screen>
       <Animated.FlatList
         ref={listRef}
         data={slides}
@@ -76,7 +75,7 @@ const OnboardingView: FC<OnboardingViewModel> = ({
           <Button title="Pular" variant="ghost" onPress={onSkip} />
         </Animated.View>
       </View>
-    </View>
+    </Screen>
   );
 };
 
