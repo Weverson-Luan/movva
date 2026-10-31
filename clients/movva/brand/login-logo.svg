@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img"><title>Movva</title>
+  <!-- M de estrada: marca do login (fundo transparente). PNG gerado em clients/movva/login-logo.png -->
+  <path d="M120 860 L300 180 L512 560 L724 180 L904 860" fill="none" stroke="#E63946" stroke-width="130" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M512 660 L512 700 M512 780 L512 820" stroke="#1D1D1F" stroke-width="44" stroke-linecap="round"/>
+</svg>

@@ -53,7 +53,7 @@ fs.writeFileSync(easPath, `${JSON.stringify(eas, null, 2)}\n`);
 
 console.log(`Cliente "${id}" criado em clients/${id}.
 Próximos passos:
-  1. Troque icon.png, adaptive-icon.png e splash.png e as cores do tema em clients/${id}/config.json
+  1. Troque icon.png, adaptive-icon.png, splash.png e login-logo.png e as cores do tema em clients/${id}/config.json
   2. CLIENT=${id} npx eas init   (cria o projeto EAS e mostra o projectId; cole em easProjectId)
   3. CLIENT=${id} npx expo start
   4. npx eas build --profile ${id} --platform all`);

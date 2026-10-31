@@ -36,6 +36,7 @@ O script (`scripts/new-client.js`) copia o cliente base, ajusta `name`, `slug`,
 | `adaptive-icon.png` | 1024×1024, conteúdo no centro (fundo = `brandBackground`) |
 | `splash.png`        | logo, fundo transparente (fundo = `brandBackground`)    |
 | `logo.png`          | logo da splash animada, sobre o `theme.background`     |
+| `login-logo.png`    | marca do login, 1024×1024, fundo transparente (o nome vem do `displayName`) |
 | `onboarding/1..3.png` | ilustração de cada slide (textos em `onboarding.slides`) |
 
 Textos de abertura no `config.json`: `tagline`, `loaderIcon` (nome do MaterialCommunityIcons)

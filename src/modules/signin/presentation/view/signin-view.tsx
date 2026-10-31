@@ -2,13 +2,15 @@
  * IMPORTS
  */
 import type { FC } from "react";
-import { KeyboardAvoidingView, Platform, Text, View } from "react-native";
+import { Image, KeyboardAvoidingView, Platform, Text, View } from "react-native";
 // components
 import { BrandButton } from "@/modules/dashboard/components/BrandButton";
 // view-model - signin
 import type { SignInViewModel } from "@/modules/signin/presentation/view-model/signin-view-model";
 // hook de marca do cliente
 import { useBrand } from "@/shared/brand/BrandProvider";
+// imagens do cliente ativo
+import { brandAssets } from "@/shared/brand/brand-assets";
 import { InputControlled } from "@/shared/components/ui/input/input-controlled";
 
 /**
@@ -20,8 +22,16 @@ const SignInView: FC<SignInViewModel> = ({ control, onSubmit, goToSignUp, isSubm
   return (
     <KeyboardAvoidingView className="flex-1 bg-background" behavior={Platform.OS === "ios" ? "padding" : undefined}>
       <View className="flex-1 justify-center gap-6 px-6">
-        <View className="gap-1">
-          <Text className="text-3xl font-bold text-text">{displayName}</Text>
+        <View className="items-center gap-6">
+          <View className="flex-row items-center gap-3">
+            <Image
+              source={brandAssets.loginLogo}
+              className="h-12 w-12"
+              resizeMode="contain"
+              accessibilityIgnoresInvertColors
+            />
+            <Text className="text-3xl font-bold text-text">{displayName}</Text>
+          </View>
           <Text className="text-base text-muted">Entre na sua conta.</Text>
         </View>
 
