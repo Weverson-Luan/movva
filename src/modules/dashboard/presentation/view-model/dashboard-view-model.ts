@@ -18,6 +18,8 @@ import { useUserStore } from "@/shared/data/store/zustand/user/user-store";
 const HEADER_SUBTITLE = "Jornada • Belo Horizonte - MG";
 const HAS_UNREAD_NOTIFICATIONS = true;
 const IS_NEAR_REST = true;
+// Fixo até existir a sincronização de dados.
+const LAST_UPDATED_LABEL = "Atualizado às 11:42 • Dados demonstrativos";
 
 type JourneyStatus = "working" | "paused" | "resting";
 
@@ -163,6 +165,7 @@ const useDashboardViewModel = () => {
     journeyToday,
     daySummary: DAY_SUMMARY,
     todayRecords,
+    lastUpdatedLabel: LAST_UPDATED_LABEL,
   };
 };
 
