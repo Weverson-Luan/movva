@@ -1,9 +1,13 @@
 /**
  * IMPORTS
  */
-import { Linking, ScrollView, Text, View } from "react-native";
+import type { FC } from "react";
+import { ScrollView, Text, View } from "react-native";
 import { BrandButton } from "@/modules/dashboard/components/BrandButton";
-import { Feature, useBrand } from "@/shared/brand/BrandProvider";
+// view-model - dashboard
+import type { DashboardViewModel } from "@/modules/dashboard/presentation/view-model/dashboard-view-model";
+import { Feature } from "@/shared/brand/BrandProvider";
+import { AppHeader } from "@/shared/components/ui/app-header";
 
 type CardProps = { title: string; text: string };
 
@@ -16,28 +20,29 @@ const Card = ({ title, text }: CardProps) => {
   );
 };
 
-const DashboardView = () => {
-  const { displayName, supportEmail, apiUrl } = useBrand();
-
+const DashboardView: FC<DashboardViewModel> = ({ header, apiUrl, onContactSupport }) => {
   return (
-    <ScrollView className="bg-background" contentContainerClassName="gap-4 p-5 pt-[72px]">
-      <Text className="text-[28px] font-bold text-text">{displayName}</Text>
-      <Text className="mb-2 text-[13px] text-muted">API: {apiUrl}</Text>
+    <View className="flex-1 bg-background">
+      <AppHeader {...header} />
 
-      <Feature name="delivery">
-        <Card title="Delivery" text="Peça e receba em casa." />
-      </Feature>
+      <ScrollView contentContainerClassName="gap-4 p-5">
+        <Text className="mb-2 text-[13px] text-muted">API: {apiUrl}</Text>
 
-      <Feature name="fidelidade">
-        <Card title="Programa de fidelidade" text="Junte pontos a cada compra." />
-      </Feature>
+        <Feature name="delivery">
+          <Card title="Delivery" text="Peça e receba em casa." />
+        </Feature>
 
-      <Feature name="chat">
-        <Card title="Chat" text="Fale com a nossa equipe." />
-      </Feature>
+        <Feature name="fidelidade">
+          <Card title="Programa de fidelidade" text="Junte pontos a cada compra." />
+        </Feature>
 
-      <BrandButton title="Falar com o suporte" onPress={() => Linking.openURL(`mailto:${supportEmail}`)} />
-    </ScrollView>
+        <Feature name="chat">
+          <Card title="Chat" text="Fale com a nossa equipe." />
+        </Feature>
+
+        <BrandButton title="Falar com o suporte" onPress={onContactSupport} />
+      </ScrollView>
+    </View>
   );
 };
 
