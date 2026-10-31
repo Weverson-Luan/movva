@@ -8,7 +8,7 @@ bundle ID, API e funcionalidades próprias.
 ```
 clients/
   movva/           config.json, icon.png, adaptive-icon.png, splash.png
-  padaria/         ...
+  cinbal/          ...
 src/
   app/                     rotas (Expo Router): cada arquivo é uma tela
     _layout.tsx            provedores globais e o Stack com as cores do cliente
@@ -35,16 +35,16 @@ scripts/
 
 ```bash
 npm install
-npm run start:movva       # ou: npm run start:padaria
+npm run start:movva       # ou: npm run start:cinbal
 ```
 
 Para conferir a configuração gerada de um cliente:
 
 ```bash
-CLIENT=padaria npm run config
+CLIENT=cinbal npm run config
 ```
 
-> No Windows (PowerShell): `$env:CLIENT="padaria"; npx expo start --clear`.
+> No Windows (PowerShell): `$env:CLIENT="cinbal"; npx expo start --clear`.
 > Os scripts `start:*` já usam `cross-env` e funcionam em qualquer sistema.
 
 Sempre use `--clear` ao trocar de cliente, para o Metro não reaproveitar o cache do anterior.

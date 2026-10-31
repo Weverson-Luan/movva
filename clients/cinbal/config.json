@@ -1,0 +1,48 @@
+{
+  "name": "Cinbal",
+  "slug": "cinbal",
+  "scheme": "cinbal",
+  "bundleId": "br.com.cinbal.app",
+  "version": "1.0.0",
+  "buildNumber": 1,
+  "easOwner": "",
+  "easProjectId": "",
+  "apiUrl": "https://api.seusistema.com.br/v1/cinbal",
+  "apiUrlDev": "http://localhost:3001",
+  "supportEmail": "contato@cinbal.com.br",
+  "tagline": "Sua jornada na estrada, simplificada.",
+  "loaderIcon": "truck-fast",
+  "brandBackground": "#B5651D",
+  "theme": {
+    "primary": "#B5651D",
+    "primaryText": "#FFFFFF",
+    "background": "#FBF3E4",
+    "surface": "#FFFFFF",
+    "text": "#3E2A14",
+    "muted": "#8A7560",
+    "danger": "#C0392B",
+    "radius": 20
+  },
+  "features": {
+    "delivery": true,
+    "chat": false,
+    "fidelidade": true,
+    "onboarding": true
+  },
+  "onboarding": {
+    "slides": [
+      {
+        "title": "Transporte pesado, simplificado",
+        "description": "Controle a jornada de trabalho do motorista com menos esforço."
+      },
+      {
+        "title": "Acompanhe cada movimento",
+        "description": "Registre abastecimentos, manutenções e lavagens do veículo em poucos toques."
+      },
+      {
+        "title": "Tudo em um só lugar",
+        "description": "Check-list do veículo, jornada, abastecimento e sua assinatura mensal em uma única experiência."
+      }
+    ]
+  }
+}

@@ -1,5 +1,5 @@
 // Configuração dinâmica: escolhe o cliente pela variável de ambiente CLIENT.
-// Ex.: CLIENT=padaria npx expo start
+// Ex.: CLIENT=cinbal npx expo start
 const fs = require("node:fs");
 const path = require("node:path");
 

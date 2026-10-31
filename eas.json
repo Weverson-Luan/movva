@@ -24,16 +24,16 @@
       "env": { "CLIENT": "movva" }
     },
 
-    "padaria-preview": {
+    "cinbal-preview": {
       "extends": "base",
       "distribution": "internal",
       "channel": "preview",
-      "env": { "CLIENT": "padaria" }
+      "env": { "CLIENT": "cinbal" }
     },
-    "padaria": {
+    "cinbal": {
       "extends": "base",
       "channel": "production",
-      "env": { "CLIENT": "padaria" }
+      "env": { "CLIENT": "cinbal" }
     }
   },
   "submit": {
@@ -41,9 +41,9 @@
       "ios": { "ascAppId": "PREENCHER", "appleTeamId": "PREENCHER" },
       "android": { "serviceAccountKeyPath": "./clients/movva/google-service-account.json", "track": "internal" }
     },
-    "padaria": {
+    "cinbal": {
       "ios": { "ascAppId": "PREENCHER", "appleTeamId": "PREENCHER" },
-      "android": { "serviceAccountKeyPath": "./clients/padaria/google-service-account.json", "track": "internal" }
+      "android": { "serviceAccountKeyPath": "./clients/cinbal/google-service-account.json", "track": "internal" }
     }
   }
 }
