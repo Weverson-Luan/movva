@@ -21,7 +21,7 @@ const DashboardView: FC<DashboardViewModel> = ({
   lastUpdatedLabel,
 }) => {
   return (
-    <Screen header={<AppHeader {...header} />} scroll contentClassName="gap-4 p-5">
+    <Screen header={<AppHeader {...header} />} edges={["top"]} scroll contentClassName="gap-4 p-5">
       <WelcomeGreeting {...welcome} />
 
       <JourneyTodayCard {...journeyToday} />

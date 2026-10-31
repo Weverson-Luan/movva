@@ -15,10 +15,10 @@ import { isBreakRecord, summarizeJourney } from "@/modules/dashboard/domain/use-
 import { formatDayLabel, getFirstName, getGreeting } from "@/modules/dashboard/utils/greeting";
 import { formatDuration, formatPeriod, formatTime } from "@/modules/dashboard/utils/record-format";
 import { useUserStore } from "@/shared/data/store/zustand/user/user-store";
+import { useAppHeader } from "@/shared/hooks/use-app-header";
 
-// Fixos até a API devolver a base do motorista, as notificações e o status da jornada.
+// Fixos até a API devolver a base do motorista e o status da jornada.
 const HEADER_SUBTITLE = "Jornada • Belo Horizonte - MG";
-const HAS_UNREAD_NOTIFICATIONS = true;
 const IS_NEAR_REST = true;
 // Fixo até existir a sincronização de dados.
 const LAST_UPDATED_LABEL = "Atualizado às 11:42 • Dados demonstrativos";
@@ -122,6 +122,7 @@ type WelcomeGreetingData = {
 // Estado da tela inicial. A view só desenha o que vem daqui.
 const useDashboardViewModel = () => {
   const userName = useUserStore((state) => state.user?.name ?? "");
+  const header = useAppHeader(HEADER_SUBTITLE);
 
   const welcome = useMemo<WelcomeGreetingData>(() => {
     const now = new Date();
@@ -173,11 +174,7 @@ const useDashboardViewModel = () => {
   }, [journeySummary]);
 
   return {
-    header: {
-      subtitle: HEADER_SUBTITLE,
-      userName,
-      hasUnreadNotifications: HAS_UNREAD_NOTIFICATIONS,
-    },
+    header,
     welcome,
     journeyToday,
     daySummary,

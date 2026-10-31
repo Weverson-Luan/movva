@@ -6,6 +6,7 @@ import "../../global.css";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { BrandProvider, useTheme } from "@/shared/brand/BrandProvider";
 
@@ -19,29 +20,32 @@ SplashScreen.setOptions({ duration: 400, fade: true });
 
 function RootLayout() {
   const theme = useTheme();
+  // GestureHandlerRootView: exigido pelo menu lateral (Drawer) para os gestos de abrir/fechar.
   return (
-    <QueryClientProvider client={queryCliente}>
-      <BrandProvider>
-        <StatusBar style="dark" />
-        <Stack
-          screenOptions={{
-            headerShown: false,
-            headerStyle: { backgroundColor: theme.background },
-            headerTintColor: theme.primary,
-            headerTitleStyle: { color: theme.text },
-            headerShadowVisible: false,
-            contentStyle: { backgroundColor: theme.background },
-          }}
-        >
-          <Stack.Screen name="index" options={{ animation: "fade" }} />
-          <Stack.Screen name="onboarding" options={{ animation: "fade" }} />
-          <Stack.Screen name="sync" options={{ animation: "fade", gestureEnabled: false }} />
-          <Stack.Screen name="signin" options={{ animation: "fade" }} />
-          <Stack.Screen name="signin-up" />
-          <Stack.Screen name="(private)" />
-        </Stack>
-      </BrandProvider>
-    </QueryClientProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <QueryClientProvider client={queryCliente}>
+        <BrandProvider>
+          <StatusBar style="dark" />
+          <Stack
+            screenOptions={{
+              headerShown: false,
+              headerStyle: { backgroundColor: theme.background },
+              headerTintColor: theme.primary,
+              headerTitleStyle: { color: theme.text },
+              headerShadowVisible: false,
+              contentStyle: { backgroundColor: theme.background },
+            }}
+          >
+            <Stack.Screen name="index" options={{ animation: "fade" }} />
+            <Stack.Screen name="onboarding" options={{ animation: "fade" }} />
+            <Stack.Screen name="sync" options={{ animation: "fade", gestureEnabled: false }} />
+            <Stack.Screen name="signin" options={{ animation: "fade" }} />
+            <Stack.Screen name="signin-up" />
+            <Stack.Screen name="(private)" />
+          </Stack>
+        </BrandProvider>
+      </QueryClientProvider>
+    </GestureHandlerRootView>
   );
 }
 

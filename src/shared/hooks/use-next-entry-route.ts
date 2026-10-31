@@ -20,7 +20,7 @@ const useNextEntryRoute = () => {
     if (!token) return "/signin";
     if (hasOnboarding && !hasSeenOnboarding) return "/onboarding";
     if (!hasSynced) return "/sync";
-    return "/(private)/dashboard";
+    return "/(private)/(tabs)/dashboard";
   }, [hasOnboarding]);
 };
 
