@@ -14,13 +14,28 @@ description: Componentes reutilizáveis e estilo (NativeWind + tailwind-variants
 
 # Estrutura
 
+**Todo componente é uma pasta**, em `shared` e nos módulos. Nada de `.tsx` solto em
+`components/`. Cada arquivo tem uma responsabilidade:
+
 ```txt
-src/shared/components/ui/<componente>/
-├── index.tsx              componente (export nomeado)
-├── interface.ts           props tipadas (export type)
-├── <componente>.variants.ts  estilos com tailwind-variants (tv)
-└── <componente>-controlled.tsx  (opcional) versão ligada ao react-hook-form
+src/shared/components/ui/<componente>/      (ou src/modules/<m>/components/<componente>/)
+├── index.tsx                       componente principal (export nomeado): só JSX
+├── interface.ts                    TODAS as props da pasta (export type)
+├── <componente>.variants.ts        estilos com tailwind-variants (tv)
+├── constants.ts                    (opcional) mapas e valores fixos: ícone por tipo, durações, tamanhos
+├── use-<componente>-animation.ts   (opcional) shared values + useAnimatedStyle, quando a animação passa de poucas linhas
+├── <sub-componente>.tsx            (opcional) peça usada só por este componente (ex.: day-summary-card.tsx)
+└── <componente>-controlled.tsx     (opcional) versão ligada ao react-hook-form
 ```
+
+- Props (`type XProps`) nunca no `.tsx`: vão para `interface.ts`.
+- `tv()` nunca no `.tsx`: vai para `<componente>.variants.ts`. Classes ficam nos slots.
+- Tipo de **dado** que vem do ViewModel (ex.: `DaySummaryItem`) é declarado no
+  ViewModel e importado em `interface.ts` — nunca o contrário (`VIEWMODEL_UI_IMPORT`).
+- Mapa de UI por tipo (ex.: ícone por `kind`) fica em `constants.ts`; o ViewModel
+  manda só a chave.
+- Referências: `src/modules/dashboard/components/day-summary/`,
+  `src/modules/onboarding/components/onboarding-slide/`, `src/shared/components/ui/input/`.
 
 # Responsabilidade
 
@@ -44,4 +59,6 @@ src/shared/components/ui/<componente>/
 - Botão de ícone: `accessibilityRole="button"` + `accessibilityLabel`.
 - Área de toque pequena: `hitSlop`.
 
+Verificação automática: `COMPONENT_FOLDER`, `COMPONENT_PROPS_INLINE`, `COMPONENT_TV_INLINE`,
+`STYLESHEET`, `INLINE_STYLE`, `COMPONENT_BUSINESS`.
 Passo a passo: skill [`create-components`](../skills/create-components/SKILL.md).

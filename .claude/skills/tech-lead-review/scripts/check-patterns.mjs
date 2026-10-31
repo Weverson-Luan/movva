@@ -374,6 +374,22 @@ const RULES = [
     source: `${S.standards} § Logs`,
   },
   {
+    id: "COMPONENT_PROPS_INLINE",
+    severity: "MINOR",
+    applies: (c) => c.isComponent && /\.tsx$/.test(c.base),
+    line: /^\s*(export\s+)?(type|interface)\s+\w*Props\b/,
+    message: "Props declaradas no .tsx — mova para `interface.ts` da pasta do componente",
+    source: `${S.comp} § Estrutura`,
+  },
+  {
+    id: "COMPONENT_TV_INLINE",
+    severity: "MINOR",
+    applies: (c) => c.isComponent && /\.tsx$/.test(c.base),
+    line: /\btv\(\s*\{/,
+    message: "tv() no .tsx — mova os estilos para `<componente>.variants.ts`",
+    source: `${S.comp} § Estrutura`,
+  },
+  {
     id: "STYLESHEET",
     severity: "MINOR",
     applies: (c) => c.isPresentation,
@@ -520,6 +536,24 @@ const FILE_RULES = [
       return missing.length ? [{ message: `Fora do padrão de tela: ${missing.join("; ")}` }] : [];
     },
     source: `${S.claude} § Padrão de tela (obrigatório)`,
+  },
+  {
+    id: "COMPONENT_FOLDER",
+    severity: "MAJOR",
+    applies: (c) => c.isComponent && /\.tsx?$/.test(c.base),
+    check: (_text, c) => {
+      // Arquivo direto em components/ (ou components/ui/) em vez de components/<componente>/.
+      const loose = /^src\/(modules\/[^/]+\/components|shared\/components(\/ui)?)\/[^/]+\.tsx?$/.test(c.rel);
+      if (loose) {
+        return [{ message: "Componente solto — crie a pasta `components/<componente>/` com index.tsx + interface.ts" }];
+      }
+      const dir = path.join(ROOT, path.dirname(c.rel));
+      if (!existsSync(path.join(dir, "index.tsx"))) {
+        return [{ message: `Pasta do componente sem index.tsx (${path.dirname(c.rel)})` }];
+      }
+      return [];
+    },
+    source: `${S.comp} § Estrutura`,
   },
   {
     id: "CLIENT_CONFIG_PARITY",

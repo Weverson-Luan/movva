@@ -3,13 +3,13 @@
  */
 import type { FC } from "react";
 import { ScrollView, Text, View } from "react-native";
-import { BrandButton } from "@/modules/dashboard/components/BrandButton";
 import { DaySummary } from "@/modules/dashboard/components/day-summary";
 import { WelcomeGreeting } from "@/modules/dashboard/components/welcome-greeting";
 // view-model - dashboard
 import type { DashboardViewModel } from "@/modules/dashboard/presentation/view-model/dashboard-view-model";
 import { Feature } from "@/shared/brand/BrandProvider";
 import { AppHeader } from "@/shared/components/ui/app-header";
+import { Button } from "@/shared/components/ui/button";
 
 type CardProps = { title: string; text: string };
 
@@ -46,7 +46,7 @@ const DashboardView: FC<DashboardViewModel> = ({ header, welcome, daySummary, ap
           <Card title="Chat" text="Fale com a nossa equipe." />
         </Feature>
 
-        <BrandButton title="Falar com o suporte" onPress={onContactSupport} />
+        <Button title="Falar com o suporte" onPress={onContactSupport} />
       </ScrollView>
     </View>
   );

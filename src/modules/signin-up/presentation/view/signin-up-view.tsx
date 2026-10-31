@@ -3,12 +3,11 @@
  */
 import type { FC } from "react";
 import { ScrollView, Text, View } from "react-native";
-
-// components
-import { BrandButton } from "@/modules/dashboard/components/BrandButton";
 // view-model - signin-up
 import type { useSigninUpViewModel } from "@/modules/signin-up/presentation/view-model/signin-up-view-model";
 import { BrandLogo } from "@/shared/components/ui/brand-logo";
+// components
+import { Button } from "@/shared/components/ui/button";
 import { InputControlled } from "@/shared/components/ui/input/input-controlled";
 import { KeyboardContainer } from "@/shared/components/ui/keyboard-container";
 
@@ -75,7 +74,7 @@ const SigninUpView: FC<ReturnType<typeof useSigninUpViewModel>> = ({ control, on
           onSubmitEditing={() => onSubmit()}
         />
 
-        <BrandButton title={isSubmitting ? "Criando conta..." : "Criar conta"} onPress={onSubmit} />
+        <Button title={isSubmitting ? "Criando conta..." : "Criar conta"} onPress={() => onSubmit()} />
       </ScrollView>
     </KeyboardContainer>
   );

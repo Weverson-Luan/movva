@@ -7,7 +7,8 @@ description: Cria um componente reutilizável do Movva com NativeWind + tailwind
 
 # SKILL — Criar componente
 
-Referência viva: `src/shared/components/ui/input/`.
+Referências vivas: `src/shared/components/ui/input/` (shared) e
+`src/modules/dashboard/components/day-summary/` (módulo, com sub-componente e constants).
 
 ## Onde
 
@@ -16,13 +17,21 @@ Referência viva: `src/shared/components/ui/input/`.
 
 ## Estrutura
 
+Sempre uma pasta — em `shared` e nos módulos (check `COMPONENT_FOLDER`).
+
 ```txt
 <componente>/
-├── index.tsx                    componente (export nomeado)
-├── interface.ts                 props
-├── <componente>.variants.ts     estilos (tv)
-└── <componente>-controlled.tsx  opcional: ligado ao react-hook-form
+├── index.tsx                      componente principal (export nomeado): só JSX
+├── interface.ts                   todas as props da pasta
+├── <componente>.variants.ts       estilos (tv)
+├── constants.ts                   opcional: mapas/valores fixos (ícone por tipo, durações)
+├── use-<componente>-animation.ts  opcional: lógica Reanimated quando passa de poucas linhas
+├── <sub-componente>.tsx           opcional: peça usada só aqui
+└── <componente>-controlled.tsx    opcional: ligado ao react-hook-form
 ```
+
+- Props nunca no `.tsx` (`COMPONENT_PROPS_INLINE`); `tv()` nunca no `.tsx` (`COMPONENT_TV_INLINE`).
+- Tipo de dado do ViewModel: declare no ViewModel e importe em `interface.ts`.
 
 ## interface.ts
 

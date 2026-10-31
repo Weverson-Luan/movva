@@ -3,11 +3,11 @@
  */
 import type { FC } from "react";
 import { ScrollView, Text, View } from "react-native";
-// components
-import { BrandButton } from "@/modules/dashboard/components/BrandButton";
 // view-model - signin
 import type { SignInViewModel } from "@/modules/signin/presentation/view-model/signin-view-model";
 import { BrandLogo } from "@/shared/components/ui/brand-logo";
+// components
+import { Button } from "@/shared/components/ui/button";
 import { InputControlled } from "@/shared/components/ui/input/input-controlled";
 import { KeyboardContainer } from "@/shared/components/ui/keyboard-container";
 
@@ -49,7 +49,7 @@ const SignInView: FC<SignInViewModel> = ({ control, onSubmit, goToSignUp, isSubm
           onSubmitEditing={() => onSubmit()}
         />
 
-        <BrandButton title={isSubmitting ? "Entrando..." : "Entrar"} onPress={onSubmit} />
+        <Button title={isSubmitting ? "Entrando..." : "Entrar"} onPress={() => onSubmit()} />
 
         <Text className="text-center text-muted" onPress={goToSignUp}>
           Não tem conta? <Text className="font-semibold text-primary">Cadastre-se</Text>
