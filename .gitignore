@@ -10,3 +10,6 @@ android/
 *.mobileprovision
 # Chaves das lojas de cada cliente: nunca versionar
 clients/*/google-service-account.json
+
+# env local (ex.: EXPO_PUBLIC_MOCK_API)
+.env*.local
