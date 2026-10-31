@@ -22,6 +22,8 @@ O script (`scripts/new-client.js`) copia o cliente base, ajusta `name`, `slug`,
 ### 2. Ajustar `clients/<id>/config.json`
 
 - `theme`: todas as cores (inclusive `danger`) e `radius`. Contraste de `primaryText` sobre `primary`.
+- `brandBackground`: fundo do ícone (Android) e do splash. Separado do `primary` para a marca
+  ter cor própria (ex.: Movva usa preto no ícone e vermelho nos botões). Sem ele, usa `theme.primary`.
 - `features`: liga/desliga o que o cliente contratou.
 - `apiUrl` / `apiUrlDev`, `supportEmail`.
 - Não remova chaves: todos os clientes têm as mesmas (check `CLIENT_CONFIG_PARITY`).
@@ -31,8 +33,8 @@ O script (`scripts/new-client.js`) copia o cliente base, ajusta `name`, `slug`,
 | Arquivo             | Formato                                                 |
 | ------------------- | ------------------------------------------------------- |
 | `icon.png`          | 1024×1024, sem transparência                            |
-| `adaptive-icon.png` | 1024×1024, conteúdo no centro (fundo = `theme.primary`) |
-| `splash.png`        | logo, fundo transparente (fundo = `theme.primary`)      |
+| `adaptive-icon.png` | 1024×1024, conteúdo no centro (fundo = `brandBackground`) |
+| `splash.png`        | logo, fundo transparente (fundo = `brandBackground`)    |
 
 ### 4. Projeto EAS e lojas
 

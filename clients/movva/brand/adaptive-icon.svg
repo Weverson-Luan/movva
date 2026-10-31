@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img"><title>Movva</title>
+  <g fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
+    <!-- aro -->
+    <circle cx="512" cy="512" r="225" stroke-width="30.53571428571429"/>
+    <!-- raios: esquerda, direita, baixo -->
+    <line x1="428.42857142857144" y1="512" x2="302.2678571428571" y2="512" stroke-width="30.53571428571429"/>
+    <line x1="595.5714285714286" y1="512" x2="721.7321428571429" y2="512" stroke-width="30.53571428571429"/>
+    <line x1="512" y1="595.5714285714286" x2="512" y2="721.7321428571429" stroke-width="30.53571428571429"/>
+  </g>
+  <!-- miolo: relógio (como o relógio de ponto do Jornada) -->
+  <circle cx="512" cy="512" r="83.57142857142857" fill="#FFFFFF"/>
+  <g stroke="#000000" stroke-width="13.660714285714286" stroke-linecap="round">
+    <line x1="512" y1="512" x2="512" y2="458.9642857142857"/>
+    <line x1="512" y1="512" x2="471.82142857142856" y2="512"/>
+  </g>
+  <circle cx="512" cy="512" r="9.642857142857142" fill="#000000"/>
+</svg>

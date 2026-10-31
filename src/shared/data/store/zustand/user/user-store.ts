@@ -6,7 +6,7 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
 // storage
-import { zustandStorage } from "@/shared/data/storage/mmkv/mmkv-storage";
+import { zustandStorage } from "@/shared/data/cache/mmkv/mmkv-storage";
 
 // typings
 import type { UserStore } from "./interface";

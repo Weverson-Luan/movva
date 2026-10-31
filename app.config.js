@@ -13,6 +13,8 @@ if (!fs.existsSync(clientDir)) {
 
 const cfg = require(path.join(clientDir, "config.json"));
 const asset = (file) => `./clients/${client}/${file}`;
+// Fundo do ícone (Android) e do splash: cor da marca, separada do primary da interface.
+const brandBackground = cfg.brandBackground ?? cfg.theme.primary;
 
 module.exports = ({ config }) => ({
   ...config,
@@ -36,7 +38,7 @@ module.exports = ({ config }) => ({
     versionCode: cfg.buildNumber,
     adaptiveIcon: {
       foregroundImage: asset("adaptive-icon.png"),
-      backgroundColor: cfg.theme.primary,
+      backgroundColor: brandBackground,
     },
   },
 
@@ -48,7 +50,7 @@ module.exports = ({ config }) => ({
         image: asset("splash.png"),
         imageWidth: 200,
         resizeMode: "contain",
-        backgroundColor: cfg.theme.primary,
+        backgroundColor: brandBackground,
       },
     ],
   ],

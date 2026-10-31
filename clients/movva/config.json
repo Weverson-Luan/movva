@@ -10,6 +10,7 @@
   "apiUrl": "https://api.evolviapp.com.br/api",
   "apiUrlDev": "https://api.evolviapp.com.br/api",
   "supportEmail": "suporte@movva.com.br",
+  "brandBackground": "#000000",
   "theme": {
     "primary": "#E63946",
     "primaryText": "#FFFFFF",

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img"><title>Movva</title><rect width="1024" height="1024" fill="#000000"/>
+  <g fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
+    <!-- aro -->
+    <circle cx="512" cy="400" r="250" stroke-width="33.92857142857143"/>
+    <!-- raios: esquerda, direita, baixo -->
+    <line x1="419.1428571428571" y1="400" x2="278.9642857142857" y2="400" stroke-width="33.92857142857143"/>
+    <line x1="604.8571428571429" y1="400" x2="745.0357142857142" y2="400" stroke-width="33.92857142857143"/>
+    <line x1="512" y1="492.8571428571429" x2="512" y2="633.0357142857142" stroke-width="33.92857142857143"/>
+  </g>
+  <!-- miolo: relógio (como o relógio de ponto do Jornada) -->
+  <circle cx="512" cy="400" r="92.85714285714286" fill="#FFFFFF"/>
+  <g stroke="#000000" stroke-width="15.178571428571429" stroke-linecap="round">
+    <line x1="512" y1="400" x2="512" y2="341.07142857142856"/>
+    <line x1="512" y1="400" x2="467.35714285714283" y2="400"/>
+  </g>
+  <circle cx="512" cy="400" r="10.714285714285715" fill="#000000"/><text x="512" y="870" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="150" letter-spacing="9" text-anchor="middle">MOVVA</text>
+</svg>
