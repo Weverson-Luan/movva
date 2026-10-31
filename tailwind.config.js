@@ -22,6 +22,7 @@ module.exports = {
         muted: theme.muted,
         danger: theme.danger,
         warning: theme.warning,
+        success: theme.success,
       },
       fontSize: {
         sm: "14px",

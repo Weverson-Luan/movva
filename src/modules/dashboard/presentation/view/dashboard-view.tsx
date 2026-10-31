@@ -4,6 +4,7 @@
 import type { FC } from "react";
 import { ScrollView, Text, View } from "react-native";
 import { DaySummary } from "@/modules/dashboard/components/day-summary";
+import { JourneyTodayCard } from "@/modules/dashboard/components/journey-today-card";
 import { WelcomeGreeting } from "@/modules/dashboard/components/welcome-greeting";
 // view-model - dashboard
 import type { DashboardViewModel } from "@/modules/dashboard/presentation/view-model/dashboard-view-model";
@@ -22,13 +23,22 @@ const Card = ({ title, text }: CardProps) => {
   );
 };
 
-const DashboardView: FC<DashboardViewModel> = ({ header, welcome, daySummary, apiUrl, onContactSupport }) => {
+const DashboardView: FC<DashboardViewModel> = ({
+  header,
+  welcome,
+  journeyToday,
+  daySummary,
+  apiUrl,
+  onContactSupport,
+}) => {
   return (
     <View className="flex-1 bg-background">
       <AppHeader {...header} />
 
       <ScrollView contentContainerClassName="gap-4 p-5">
         <WelcomeGreeting {...welcome} />
+
+        <JourneyTodayCard {...journeyToday} />
 
         <DaySummary items={daySummary} />
 

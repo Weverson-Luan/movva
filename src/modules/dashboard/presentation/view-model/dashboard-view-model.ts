@@ -12,6 +12,30 @@ const HEADER_SUBTITLE = "Jornada • Belo Horizonte - MG";
 const HAS_UNREAD_NOTIFICATIONS = true;
 const IS_NEAR_REST = true;
 
+type JourneyStatus = "working" | "paused" | "resting";
+
+type JourneyTodayData = {
+  /** define a cor do ponto do selo */
+  status: JourneyStatus;
+  /** texto do selo (ex.: "Em trabalho") */
+  statusLabel: string;
+  /** tempo trabalhado (ex.: "04h 12min") */
+  workedLabel: string;
+  /** ex.: "Início 07:00" */
+  startLabel: string;
+  /** ex.: "Pausas 30min" */
+  breaksLabel: string;
+};
+
+// Fixo até existir o endpoint de jornada.
+const JOURNEY_TODAY: JourneyTodayData = {
+  status: "working",
+  statusLabel: "Em trabalho",
+  workedLabel: "04h 12min",
+  startLabel: "Início 07:00",
+  breaksLabel: "Pausas 30min",
+};
+
 type DaySummaryKind = "work" | "breaks" | "total";
 
 type DaySummaryItem = {
@@ -70,6 +94,7 @@ const useDashboardViewModel = () => {
       hasUnreadNotifications: HAS_UNREAD_NOTIFICATIONS,
     },
     welcome,
+    journeyToday: JOURNEY_TODAY,
     daySummary: DAY_SUMMARY,
     apiUrl,
     onContactSupport,
@@ -81,5 +106,13 @@ type DashboardViewModel = ReturnType<typeof useDashboardViewModel>;
 /**
  * EXPORTS
  */
-export type { DashboardViewModel, DaySummaryItem, DaySummaryKind, WelcomeGreetingData, WelcomeGreetingTone };
+export type {
+  DashboardViewModel,
+  DaySummaryItem,
+  DaySummaryKind,
+  JourneyStatus,
+  JourneyTodayData,
+  WelcomeGreetingData,
+  WelcomeGreetingTone,
+};
 export { useDashboardViewModel };

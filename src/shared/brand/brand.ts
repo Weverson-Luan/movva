@@ -10,6 +10,8 @@ export type Theme = {
   danger: string;
   /** atenção, não erro (ex.: perto do repouso) */
   warning: string;
+  /** status ok (ex.: "Em trabalho") */
+  success: string;
   radius: number;
 };
 

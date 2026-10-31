@@ -18,6 +18,7 @@ const Button = ({
   title,
   variant = "solid",
   icon,
+  iconPosition = "right",
   isDisabled = false,
   onPressIn,
   onPressOut,
@@ -47,8 +48,9 @@ const Button = ({
         }}
         {...pressableProps}
       >
+        {icon && iconPosition === "left" && <MaterialCommunityIcons name={icon} size={20} color={iconColor} />}
         <Text className={styles.label()}>{title}</Text>
-        {icon && <MaterialCommunityIcons name={icon} size={20} color={iconColor} />}
+        {icon && iconPosition === "right" && <MaterialCommunityIcons name={icon} size={20} color={iconColor} />}
       </Pressable>
     </Animated.View>
   );

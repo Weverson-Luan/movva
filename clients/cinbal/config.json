@@ -22,6 +22,7 @@
     "muted": "#8A7560",
     "danger": "#C0392B",
     "warning": "#D98E04",
+    "success": "#6BAA5C",
     "radius": 20
   },
   "features": {

@@ -9,8 +9,10 @@ import type { PressableProps } from "react-native";
 type ButtonProps = Omit<PressableProps, "children"> & {
   title: string;
   variant?: "solid" | "ghost";
-  /** Ícone à direita do texto (ex.: "arrow-right"). */
+  /** Ícone ao lado do texto (ex.: "arrow-right"). */
   icon?: ComponentProps<typeof MaterialCommunityIcons>["name"];
+  /** lado do ícone; padrão à direita */
+  iconPosition?: "left" | "right";
   isDisabled?: boolean;
 };
 

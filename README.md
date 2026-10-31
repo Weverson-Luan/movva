@@ -120,6 +120,7 @@ React Native) usando `className`. As cores de cada cliente viram classes:
 | `muted`          | `text-muted`                                      |
 | `danger`         | `text-danger`, `border-danger` (erros)            |
 | `warning`        | `text-warning` (atenção, ex.: perto do repouso)   |
+| `success`        | `bg-success` (status ok, ex.: "Em trabalho")      |
 | `radius`         | `rounded-brand`                                   |
 
 ```tsx
