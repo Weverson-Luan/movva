@@ -6,7 +6,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 // styles
-import { useTheme } from "@/brand/BrandProvider";
+import { useTheme } from "@/shared/brand/BrandProvider";
 // variantes
 import { inputVariants } from "./input.variants";
 

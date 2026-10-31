@@ -13,11 +13,13 @@ src/
   app/                     rotas (Expo Router): cada arquivo é uma tela
     _layout.tsx            provedores globais e o Stack com as cores do cliente
     index.tsx              rota "/"
-  brand/brand.ts           lê a marca do cliente atual (expo-constants)
-  brand/BrandProvider.tsx  useBrand, useTheme, useFeature, <Feature>
-  components/BrandButton.tsx   exemplo de componente sem cores fixas
-  modules/
-    dashboard/presentation/view/dashboard-view.tsx   telas de cada módulo
+  modules/<módulo>/        domain, data, factories e presentation (view, view-model, hooks)
+  shared/
+    brand/brand.ts           lê a marca do cliente atual (expo-constants)
+    brand/BrandProvider.tsx  useBrand, useTheme, useFeature, <Feature>
+    components/ui/           componentes reutilizáveis (Input, InputControlled...)
+    data/                    cliente HTTP (axios), storage (MMKV) e stores (zustand)
+    interfaces/http/         tipos das requisições e respostas da API
 app.config.js      escolhe o cliente pela variável CLIENT
 tailwind.config.js cores e raio do NativeWind, lidos do config.json do cliente
 global.css         entrada do Tailwind (importado no src/app/_layout.tsx)
@@ -175,13 +177,13 @@ o arquivo é formatado ao salvar.
   ```
 
 - **Imports entre pastas usam `@/`**, que aponta para `src/`:
-  `import { useBrand } from "@/brand/BrandProvider"`. Caminho relativo só para
+  `import { useBrand } from "@/shared/brand/BrandProvider"`. Caminho relativo só para
   arquivos da mesma pasta (`./brand`). O alias é definido em `paths` no `tsconfig.json`.
 - **Nunca use cor fixa** em componente (nem `bg-red-500`). Use as classes do
   tema (`bg-primary`) ou, fora do `className`, `useTheme()`.
 - **Nunca faça `if (client === 'movva')`**. Crie uma feature em `features` e use
   `useFeature("nome")` ou `<Feature name="nome">`. Ao adicionar uma feature
-  nova, coloque-a no tipo `Features` em `src/brand/brand.ts` e em todos os
+  nova, coloque-a no tipo `Features` em `src/shared/brand/brand.ts` e em todos os
   `config.json`.
 - Textos com o nome do app vêm de `useBrand().displayName`.
 

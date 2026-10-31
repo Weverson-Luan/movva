@@ -2,8 +2,8 @@
  * IMPORTS
  */
 import { Linking, ScrollView, Text, View } from "react-native";
-import { Feature, useBrand } from "@/brand/BrandProvider";
 import { BrandButton } from "@/modules/dashboard/components/BrandButton";
+import { Feature, useBrand } from "@/shared/brand/BrandProvider";
 
 type CardProps = { title: string; text: string };
 

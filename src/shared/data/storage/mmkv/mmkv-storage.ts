@@ -3,7 +3,7 @@
  */
 import { createMMKV } from "react-native-mmkv";
 import type { StateStorage } from "zustand/middleware";
-import { brand } from "@/brand/brand";
+import { brand } from "@/shared/brand/brand";
 
 // Um arquivo de storage por cliente (cada cliente já é um app separado,
 // o id só deixa isso explícito ao depurar).

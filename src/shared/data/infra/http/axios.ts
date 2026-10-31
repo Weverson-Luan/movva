@@ -3,7 +3,7 @@
  */
 import axios, { type AxiosInstance } from "axios";
 import Constants from "expo-constants";
-import { brand } from "@/brand/brand";
+import { brand } from "@/shared/brand/brand";
 
 // Produção: apiUrl do cliente. Desenvolvimento: apiUrlDev do cliente
 // (clients/<cliente>/config.json). No emulador Android e no celular,

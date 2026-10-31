@@ -3,12 +3,12 @@
  */
 import type { FC } from "react";
 import { KeyboardAvoidingView, Platform, Text, View } from "react-native";
-// hook de marca do cliente
-import { useBrand } from "@/brand/BrandProvider";
 // components
 import { BrandButton } from "@/modules/dashboard/components/BrandButton";
 // view-model - signin
 import type { SignInViewModel } from "@/modules/signin/presentation/view-model/signin-view-model";
+// hook de marca do cliente
+import { useBrand } from "@/shared/brand/BrandProvider";
 import { InputControlled } from "@/shared/components/ui/input/input-controlled";
 
 /**
