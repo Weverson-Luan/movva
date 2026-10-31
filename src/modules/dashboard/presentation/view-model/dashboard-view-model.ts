@@ -4,9 +4,11 @@
 import { useMemo } from "react";
 import type {
   CompletedJourneyRecordPeriod,
+  DaySummaryTotalKind,
   JourneyRecord,
   JourneyRecordType,
 } from "@/modules/dashboard/domain/models/journey-record";
+import { buildDaySummary } from "@/modules/dashboard/domain/use-cases/build-day-summary";
 import { buildRecordHistory } from "@/modules/dashboard/domain/use-cases/build-record-history";
 import { buildRecordPeriods } from "@/modules/dashboard/domain/use-cases/build-record-periods";
 import { isBreakRecord, summarizeJourney } from "@/modules/dashboard/domain/use-cases/summarize-journey";
@@ -44,23 +46,24 @@ const JOURNEY_STATUS_LABEL: Record<JourneyStatus, string> = {
   resting: "Em repouso",
 };
 
-type DaySummaryKind = "work" | "breaks" | "total";
+type DaySummaryKind = DaySummaryTotalKind;
 
 type DaySummaryItem = {
   /** qual total é; a view escolhe o ícone por aqui */
   key: DaySummaryKind;
   /** rótulo do total (ex.: "Pausas") */
   label: string;
-  /** duração formatada (ex.: "00:30") */
-  value: string;
+  /** minutos já encerrados */
+  baseMinutes: number;
+  /** início (ms) da atividade aberta que soma neste total; o cartão conta a partir daqui */
+  runningSinceMs: number | null;
 };
 
-// Fixo até existir o endpoint de jornada.
-const DAY_SUMMARY: DaySummaryItem[] = [
-  { key: "work", label: "Trabalho", value: "04:00" },
-  { key: "breaks", label: "Pausas", value: "00:30" },
-  { key: "total", label: "Total trabalho", value: "03:30" },
-];
+const DAY_SUMMARY_LABEL: Record<DaySummaryKind, string> = {
+  work: "Trabalho",
+  breaks: "Pausas",
+  total: "Total trabalho",
+};
 
 type TodayRecordType = JourneyRecordType;
 
@@ -139,8 +142,22 @@ const useDashboardViewModel = () => {
   // Só registros encerrados (regra no domínio).
   const todayRecords = useMemo(() => buildRecordHistory(periods).map(toTodayRecordItem), [periods]);
 
+  const journeySummary = useMemo(() => summarizeJourney(periods), [periods]);
+
+  // Valores base + início da atividade aberta; o tempo corrente é somado nos cartões (folhas).
+  const daySummary = useMemo<DaySummaryItem[]>(
+    () =>
+      buildDaySummary(journeySummary).map((total) => ({
+        key: total.kind,
+        label: DAY_SUMMARY_LABEL[total.kind],
+        baseMinutes: total.baseMinutes,
+        runningSinceMs: total.runningSince?.getTime() ?? null,
+      })),
+    [journeySummary],
+  );
+
   const journeyToday = useMemo<JourneyTodayData>(() => {
-    const { completedWorkMinutes, completedBreakMinutes, active } = summarizeJourney(periods);
+    const { completedWorkMinutes, completedBreakMinutes, active } = journeySummary;
     const isOnBreak = active !== null && isBreakRecord(active.type);
     const status: JourneyStatus = active === null ? "resting" : isOnBreak ? "paused" : "working";
 
@@ -153,7 +170,7 @@ const useDashboardViewModel = () => {
       startLabel: `Início ${active ? formatTime(active.startedAt) : "--:--"}`,
       breaksLabel: `Pausas ${formatDuration(completedBreakMinutes)}`,
     };
-  }, [periods]);
+  }, [journeySummary]);
 
   return {
     header: {
@@ -163,7 +180,7 @@ const useDashboardViewModel = () => {
     },
     welcome,
     journeyToday,
-    daySummary: DAY_SUMMARY,
+    daySummary,
     todayRecords,
     lastUpdatedLabel: LAST_UPDATED_LABEL,
   };

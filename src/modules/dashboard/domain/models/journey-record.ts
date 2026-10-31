@@ -34,7 +34,25 @@ type JourneySummary = {
   active: JourneyRecordPeriod | null;
 };
 
+type DaySummaryTotalKind = "work" | "breaks" | "total";
+
+type DaySummaryTotal = {
+  kind: DaySummaryTotalKind;
+  /** minutos já encerrados */
+  baseMinutes: number;
+  /** início da atividade aberta que soma neste total; null = total parado */
+  runningSince: Date | null;
+};
+
 /**
  * EXPORTS
  */
-export type { CompletedJourneyRecordPeriod, JourneyRecord, JourneyRecordPeriod, JourneyRecordType, JourneySummary };
+export type {
+  CompletedJourneyRecordPeriod,
+  DaySummaryTotal,
+  DaySummaryTotalKind,
+  JourneyRecord,
+  JourneyRecordPeriod,
+  JourneyRecordType,
+  JourneySummary,
+};

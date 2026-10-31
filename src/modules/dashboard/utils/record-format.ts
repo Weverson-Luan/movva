@@ -26,7 +26,10 @@ const formatDuration = (minutes: number) => {
 // 252 → "04h 12min" (card da jornada: horas com dois dígitos)
 const formatWorkedDuration = (minutes: number) => `${pad(Math.floor(minutes / 60))}h ${pad(minutes % 60)}min`;
 
+// 210 → "03:30" (cartões do resumo do dia)
+const formatClockDuration = (minutes: number) => `${pad(Math.floor(minutes / 60))}:${pad(minutes % 60)}`;
+
 /**
  * EXPORTS
  */
-export { formatDuration, formatPeriod, formatTime, formatWorkedDuration };
+export { formatClockDuration, formatDuration, formatPeriod, formatTime, formatWorkedDuration };

@@ -8,12 +8,14 @@ type DaySummaryProps = {
   items: DaySummaryItem[];
 };
 
-type DaySummaryCardProps = Pick<DaySummaryItem, "label" | "value"> & {
+type DaySummaryCardProps = Pick<DaySummaryItem, "label" | "baseMinutes" | "runningSinceMs"> & {
   /** qual total é; define o ícone */
   kind: DaySummaryKind;
 };
 
+type DaySummaryValueProps = Pick<DaySummaryItem, "label" | "baseMinutes" | "runningSinceMs">;
+
 /**
  * EXPORTS
  */
-export type { DaySummaryCardProps, DaySummaryProps };
+export type { DaySummaryCardProps, DaySummaryProps, DaySummaryValueProps };

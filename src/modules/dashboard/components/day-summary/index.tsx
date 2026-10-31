@@ -19,7 +19,13 @@ const DaySummary = ({ items }: DaySummaryProps) => {
       </Text>
       <View className={styles.row()}>
         {items.map((item) => (
-          <DaySummaryCard key={item.key} kind={item.key} label={item.label} value={item.value} />
+          <DaySummaryCard
+            key={item.key}
+            kind={item.key}
+            label={item.label}
+            baseMinutes={item.baseMinutes}
+            runningSinceMs={item.runningSinceMs}
+          />
         ))}
       </View>
     </View>
