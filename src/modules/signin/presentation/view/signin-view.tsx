@@ -2,7 +2,7 @@
  * IMPORTS
  */
 import type { FC } from "react";
-import { Image, KeyboardAvoidingView, Platform, Text, View } from "react-native";
+import { Image, ScrollView, Text, View } from "react-native";
 // components
 import { BrandButton } from "@/modules/dashboard/components/BrandButton";
 // view-model - signin
@@ -12,6 +12,7 @@ import { useBrand } from "@/shared/brand/BrandProvider";
 // imagens do cliente ativo
 import { brandAssets } from "@/shared/brand/brand-assets";
 import { InputControlled } from "@/shared/components/ui/input/input-controlled";
+import { KeyboardContainer } from "@/shared/components/ui/keyboard-container";
 
 /**
  * Tela SignInView
@@ -20,8 +21,12 @@ const SignInView: FC<SignInViewModel> = ({ control, onSubmit, goToSignUp, isSubm
   const { displayName } = useBrand();
 
   return (
-    <KeyboardAvoidingView className="flex-1 bg-background" behavior={Platform.OS === "ios" ? "padding" : undefined}>
-      <View className="flex-1 justify-center gap-6 px-6">
+    <KeyboardContainer className="bg-background">
+      <ScrollView
+        contentContainerClassName="flex-grow justify-center gap-6 px-6 py-12"
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
+      >
         <View className="items-center gap-6">
           <View className="flex-row items-center gap-3">
             <Image
@@ -62,8 +67,8 @@ const SignInView: FC<SignInViewModel> = ({ control, onSubmit, goToSignUp, isSubm
         <Text className="text-center text-muted" onPress={goToSignUp}>
           Não tem conta? <Text className="font-semibold text-primary">Cadastre-se</Text>
         </Text>
-      </View>
-    </KeyboardAvoidingView>
+      </ScrollView>
+    </KeyboardContainer>
   );
 };
 
