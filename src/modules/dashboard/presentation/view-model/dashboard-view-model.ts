@@ -12,6 +12,24 @@ const HEADER_SUBTITLE = "Jornada • Belo Horizonte - MG";
 const HAS_UNREAD_NOTIFICATIONS = true;
 const IS_NEAR_REST = true;
 
+type DaySummaryKind = "work" | "breaks" | "total";
+
+type DaySummaryItem = {
+  /** qual total é; a view escolhe o ícone por aqui */
+  key: DaySummaryKind;
+  /** rótulo do total (ex.: "Pausas") */
+  label: string;
+  /** duração formatada (ex.: "00:30") */
+  value: string;
+};
+
+// Fixo até existir o endpoint de jornada.
+const DAY_SUMMARY: DaySummaryItem[] = [
+  { key: "work", label: "Trabalho", value: "04:00" },
+  { key: "breaks", label: "Pausas", value: "00:30" },
+  { key: "total", label: "Total trabalho", value: "03:30" },
+];
+
 type WelcomeGreetingTone = "default" | "warning";
 
 type WelcomeGreetingData = {
@@ -52,6 +70,7 @@ const useDashboardViewModel = () => {
       hasUnreadNotifications: HAS_UNREAD_NOTIFICATIONS,
     },
     welcome,
+    daySummary: DAY_SUMMARY,
     apiUrl,
     onContactSupport,
   };
@@ -62,5 +81,5 @@ type DashboardViewModel = ReturnType<typeof useDashboardViewModel>;
 /**
  * EXPORTS
  */
-export type { DashboardViewModel, WelcomeGreetingData, WelcomeGreetingTone };
+export type { DashboardViewModel, DaySummaryItem, DaySummaryKind, WelcomeGreetingData, WelcomeGreetingTone };
 export { useDashboardViewModel };
