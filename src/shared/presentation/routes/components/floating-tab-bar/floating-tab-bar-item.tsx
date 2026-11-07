@@ -11,7 +11,7 @@ import { floatingTabBarItemVariants } from "./floating-tab-bar.variants";
 // typings
 import type { FloatingTabBarItemProps } from "./interface";
 
-// Uma aba: ícone com destaque em pílula quando ativa + rótulo.
+// Uma aba: ícone + rótulo; ativa mostra só o ícone na pílula.
 const FloatingTabBarItem = ({ item, onPress }: FloatingTabBarItemProps) => {
   const theme = useTheme();
   const styles = floatingTabBarItemVariants({ state: item.isFocused ? "focused" : "default" });
@@ -24,10 +24,13 @@ const FloatingTabBarItem = ({ item, onPress }: FloatingTabBarItemProps) => {
       accessibilityLabel={item.label}
       accessibilityState={{ selected: item.isFocused }}
     >
-      <View className={styles.iconWrapper()}>
+      {/* key pelo estado: remonta a pílula ao trocar de aba. No Android (nova arquitetura) o fundo
+          aplicado depois da montagem perde o raio e a pílula fica quadrada. */}
+      <View key={item.isFocused ? "focused" : "default"} className={styles.iconWrapper()}>
         <Ionicons name={ROUTE_ICON[item.key]} size={24} color={item.isFocused ? theme.primary : theme.text} />
       </View>
-      <Text className={styles.label()}>{item.label}</Text>
+      {/* Ativa: só a pílula; o nome segue no accessibilityLabel. */}
+      {item.isFocused ? null : <Text className={styles.label()}>{item.label}</Text>}
     </TouchableOpacity>
   );
 };

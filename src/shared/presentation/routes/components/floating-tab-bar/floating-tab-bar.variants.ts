@@ -14,14 +14,14 @@ const floatingTabBarVariants = tv({
 
 const floatingTabBarItemVariants = tv({
   slots: {
-    button: "flex-1 items-center gap-1 py-1",
+    button: "h-14 flex-1 items-center justify-center gap-1",
     iconWrapper: "h-9 w-14 items-center justify-center rounded-full",
     label: "text-sm font-semibold",
   },
   variants: {
     state: {
       default: { label: "text-text" },
-      focused: { iconWrapper: "bg-primary/10", label: "text-primary" },
+      focused: { iconWrapper: "bg-primary/10" },
     },
   },
   defaultVariants: {
