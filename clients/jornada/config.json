@@ -1,0 +1,51 @@
+{
+  "name": "Jornada",
+  "slug": "jornada",
+  "scheme": "jornada",
+  "bundleId": "br.com.grupofigueiredo.jornada",
+  "version": "6.0.0",
+  "buildNumber": 21,
+  "easOwner": "",
+  "easProjectId": "",
+  "apiUrl": "http://grupofigueiredo.com.br:1111/jornada_mobile",
+  "apiUrlDev": "http://grupofigueiredo.com.br:1111/jornada_mobile",
+  "supportEmail": "suporte@grupofigueiredo.com.br",
+  "tagline": "Sua jornada na estrada, sob controle.",
+  "loaderIcon": "truck-fast",
+  "brandBackground": "#011C3A",
+  "theme": {
+    "primary": "#050022",
+    "primaryText": "#FFFFFF",
+    "background": "#F4F5F6",
+    "surface": "#FFFFFF",
+    "text": "#393939",
+    "muted": "#727272",
+    "danger": "#9F0000",
+    "warning": "#FFA41C",
+    "success": "#49C63E",
+    "accent": "#357FD6",
+    "radius": 8
+  },
+  "features": {
+    "delivery": true,
+    "chat": false,
+    "fidelidade": false,
+    "onboarding": true
+  },
+  "onboarding": {
+    "slides": [
+      {
+        "title": "Transporte pesado, simplificado",
+        "description": "Controle a jornada de trabalho do motorista com menos esforço."
+      },
+      {
+        "title": "Acompanhe cada movimento",
+        "description": "Registre atividades, abastecimentos, manutenções e lavagens do veículo em poucos toques."
+      },
+      {
+        "title": "Tudo em um só lugar",
+        "description": "Check-list do veículo, jornada, abastecimento e sua assinatura mensal em uma única experiência."
+      }
+    ]
+  }
+}

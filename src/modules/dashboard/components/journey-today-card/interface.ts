@@ -2,14 +2,9 @@
  * IMPORTS
  */
 
-import type { Ionicons } from "@expo/vector-icons";
-import type { ComponentProps } from "react";
 import type { JourneyStatus, JourneyTodayData } from "@/modules/dashboard/presentation/view-model/dashboard-view-model";
 
-type JourneyTodayCardProps = JourneyTodayData & {
-  /** abre o acompanhamento da jornada */
-  onPressTrack?: () => void;
-};
+type JourneyTodayCardProps = JourneyTodayData;
 
 type JourneyStatusBadgeProps = {
   status: JourneyStatus;
@@ -23,12 +18,14 @@ type WorkedDurationProps = {
   activeStartedAtMs: number | null;
 };
 
-type JourneyMetaItemProps = {
-  icon: ComponentProps<typeof Ionicons>["name"];
-  label: string;
+type PeriodElapsedProps = {
+  /** ex.: "Período atual desde 09:40" */
+  sinceLabel: string;
+  /** início da atividade em andamento (ms) */
+  startedAtMs: number;
 };
 
 /**
  * EXPORTS
  */
-export type { JourneyMetaItemProps, JourneyStatusBadgeProps, JourneyTodayCardProps, WorkedDurationProps };
+export type { JourneyStatusBadgeProps, JourneyTodayCardProps, PeriodElapsedProps, WorkedDurationProps };

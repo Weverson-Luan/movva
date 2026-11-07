@@ -110,18 +110,19 @@ esconder em uma tela, use `<Stack.Screen name="..." options={{ headerShown: fals
 Os estilos são feitos com [NativeWind](https://www.nativewind.dev) (Tailwind para
 React Native) usando `className`. As cores de cada cliente viram classes:
 
-| Campo do `theme` | Classes                                           |
-| ---------------- | ------------------------------------------------- |
-| `primary`        | `bg-primary`, `text-primary`, `border-primary`... |
-| `primaryText`    | `text-primary-text`                               |
-| `background`     | `bg-background`                                   |
-| `surface`        | `bg-surface`                                      |
-| `text`           | `text-text`                                       |
-| `muted`          | `text-muted`                                      |
-| `danger`         | `text-danger`, `border-danger` (erros)            |
-| `warning`        | `text-warning` (atenção, ex.: perto do repouso)   |
-| `success`        | `bg-success` (status ok, ex.: "Em trabalho")      |
-| `radius`         | `rounded-brand`                                   |
+| Campo do `theme` | Classes                                                                       |
+| ---------------- | ----------------------------------------------------------------------------- |
+| `primary`        | `bg-primary`, `text-primary`, `border-primary`...                             |
+| `primaryText`    | `text-primary-text`                                                           |
+| `background`     | `bg-background`                                                               |
+| `surface`        | `bg-surface`                                                                  |
+| `text`           | `text-text`                                                                   |
+| `muted`          | `text-muted`                                                                  |
+| `danger`         | `text-danger`, `border-danger` (erros)                                        |
+| `warning`        | `text-warning` (atenção, ex.: perto do repouso)                               |
+| `success`        | `bg-success` (status ok, ex.: "Em trabalho")                                  |
+| `accent`         | `text-accent` (destaque sobre o card escuro `bg-text`, ex.: ícone do período) |
+| `radius`         | `rounded-brand`                                                               |
 
 ```tsx
 <View className="rounded-brand bg-surface p-4">

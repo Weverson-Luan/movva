@@ -23,6 +23,7 @@
     "danger": "#D62828",
     "warning": "#F08A4B",
     "success": "#4ADE80",
+    "accent": "#E63946",
     "radius": 12
   },
   "features": {

@@ -34,10 +34,17 @@ type JourneyTodayData = {
   workedBaseMinutes: number;
   /** início da atividade de trabalho em andamento (ms) — o card conta a partir daqui; null = parado */
   activeWorkStartedAtMs: number | null;
-  /** início da atividade em andamento = fim da anterior (ex.: "Início 10:10") */
-  startLabel: string;
-  /** ex.: "Pausas 30min" */
-  breaksLabel: string;
+  /** atividade em andamento (trabalho ou pausa); null = nenhuma */
+  currentPeriod: JourneyCurrentPeriod | null;
+};
+
+type JourneyCurrentPeriod = {
+  /** ex.: "Período atual desde 10:10" (início = fim da anterior) */
+  sinceLabel: string;
+  /** início (ms); o card soma a duração corrente a partir daqui */
+  startedAtMs: number;
+  /** ex.: "Operação com veículo" */
+  title: string;
 };
 
 const JOURNEY_STATUS_LABEL: Record<JourneyStatus, string> = {
@@ -158,7 +165,7 @@ const useDashboardViewModel = () => {
   );
 
   const journeyToday = useMemo<JourneyTodayData>(() => {
-    const { completedWorkMinutes, completedBreakMinutes, active } = journeySummary;
+    const { completedWorkMinutes, active } = journeySummary;
     const isOnBreak = active !== null && isBreakRecord(active.type);
     const status: JourneyStatus = active === null ? "resting" : isOnBreak ? "paused" : "working";
 
@@ -168,8 +175,13 @@ const useDashboardViewModel = () => {
       workedBaseMinutes: completedWorkMinutes,
       activeWorkStartedAtMs: active !== null && !isOnBreak ? active.startedAt.getTime() : null,
       // Início da atividade atual = fim da anterior (regra do domínio).
-      startLabel: `Início ${active ? formatTime(active.startedAt) : "--:--"}`,
-      breaksLabel: `Pausas ${formatDuration(completedBreakMinutes)}`,
+      currentPeriod: active
+        ? {
+            sinceLabel: `Período atual desde ${formatTime(active.startedAt)}`,
+            startedAtMs: active.startedAt.getTime(),
+            title: active.title,
+          }
+        : null,
     };
   }, [journeySummary]);
 
@@ -192,6 +204,7 @@ export type {
   DashboardViewModel,
   DaySummaryItem,
   DaySummaryKind,
+  JourneyCurrentPeriod,
   JourneyStatus,
   JourneyTodayData,
   TodayRecordItem,

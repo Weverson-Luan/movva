@@ -23,6 +23,7 @@ module.exports = {
         danger: theme.danger,
         warning: theme.warning,
         success: theme.success,
+        accent: theme.accent,
       },
       fontSize: {
         sm: "14px",

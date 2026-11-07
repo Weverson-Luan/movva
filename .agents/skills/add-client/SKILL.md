@@ -63,7 +63,7 @@ CLIENT=<id> npx expo prebuild --clean && npx expo run:android
 ```
 
 Confira ícone, splash, cores e nome no aparelho (não no Expo Go — ele mostra o ícone do Expo).
-Adicione o script `start:<id>` no `package.json`.
+Adicione os scripts `start:<id>` (Metro) e `android:<id>` (build + Metro com o cliente certo) no `package.json`.
 
 ---
 

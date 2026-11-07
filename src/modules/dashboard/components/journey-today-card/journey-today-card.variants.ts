@@ -7,14 +7,12 @@ import { tv } from "tailwind-variants";
 // Card invertido: fundo na cor de texto do cliente, textos na cor de superfície.
 const journeyTodayCardVariants = tv({
   slots: {
-    container: "gap-5 rounded-brand bg-text p-6",
+    container: "gap-4 rounded-brand bg-text p-6",
     header: "flex-row items-center justify-between gap-3",
-    title: "flex-1 text-lg font-semibold text-surface",
-    hero: "flex-row items-center justify-between gap-3",
-    heroTexts: "flex-1 gap-1",
-    worked: "text-[44px] font-bold leading-[52px] text-surface",
-    workedCaption: "text-base text-surface/70",
-    meta: "flex-row flex-wrap items-center gap-x-6 gap-y-2",
+    title: "flex-1 text-base text-surface/70",
+    worked: "text-[64px] font-bold leading-[72px] text-surface",
+    details: "gap-3",
+    activityTitle: "text-lg font-semibold text-surface",
   },
 });
 
@@ -34,14 +32,14 @@ const journeyStatusBadgeVariants = tv({
   },
 });
 
-const journeyMetaItemVariants = tv({
+const periodElapsedVariants = tv({
   slots: {
-    container: "flex-row items-center gap-2 opacity-70",
-    label: "text-base text-surface",
+    container: "flex-row items-center gap-2",
+    label: "flex-1 text-base text-surface/70",
   },
 });
 
 /**
  * EXPORTS
  */
-export { journeyMetaItemVariants, journeyStatusBadgeVariants, journeyTodayCardVariants };
+export { journeyStatusBadgeVariants, journeyTodayCardVariants, periodElapsedVariants };

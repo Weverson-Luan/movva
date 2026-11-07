@@ -12,6 +12,8 @@ export type Theme = {
   warning: string;
   /** status ok (ex.: "Em trabalho") */
   success: string;
+  /** destaque legível sobre o card escuro (bg-text), ex.: ícone do período atual */
+  accent: string;
   radius: number;
 };
 

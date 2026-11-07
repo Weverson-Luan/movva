@@ -3,7 +3,7 @@
  */
 import { memo } from "react";
 import { Text } from "react-native";
-import { formatWorkedDuration } from "@/modules/dashboard/utils/record-format";
+import { formatClockDuration, formatDuration } from "@/modules/dashboard/utils/record-format";
 import { useElapsedMinutes } from "@/shared/hooks/use-elapsed-minutes";
 // typings
 import type { WorkedDurationProps } from "./interface";
@@ -14,14 +14,15 @@ import { journeyTodayCardVariants } from "./journey-today-card.variants";
 const WorkedDuration = memo(({ baseMinutes, activeStartedAtMs }: WorkedDurationProps) => {
   const styles = journeyTodayCardVariants();
   const elapsedMinutes = useElapsedMinutes(activeStartedAtMs);
-  const label = formatWorkedDuration(baseMinutes + elapsedMinutes);
+  const totalMinutes = baseMinutes + elapsedMinutes;
+  const label = formatClockDuration(totalMinutes);
 
   return (
     <Text
       className={styles.worked()}
       numberOfLines={1}
       adjustsFontSizeToFit
-      accessibilityLabel={`${label} de trabalho registrado`}
+      accessibilityLabel={`${formatDuration(totalMinutes)} de trabalho registrado`}
     >
       {label}
     </Text>

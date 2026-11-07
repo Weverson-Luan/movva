@@ -2,10 +2,9 @@
  * IMPORTS
  */
 
-const HERO_ICON_SIZE = 40;
-const META_ICON_SIZE = 18;
+const PERIOD_ICON_SIZE = 20;
 
 /**
  * EXPORTS
  */
-export { HERO_ICON_SIZE, META_ICON_SIZE };
+export { PERIOD_ICON_SIZE };

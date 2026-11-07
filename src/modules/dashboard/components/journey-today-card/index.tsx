@@ -1,56 +1,44 @@
 /**
  * IMPORTS
  */
-import { Ionicons } from "@expo/vector-icons";
 import { Text, View } from "react-native";
-// marca do cliente
-import { useTheme } from "@/shared/brand/BrandProvider";
-import { Button } from "@/shared/components/ui/button";
-
-import { HERO_ICON_SIZE } from "./constants";
 // typings
 import type { JourneyTodayCardProps } from "./interface";
-import { JourneyMetaItem } from "./journey-meta-item";
 import { JourneyStatusBadge } from "./journey-status-badge";
 import { journeyTodayCardVariants } from "./journey-today-card.variants";
+import { PeriodElapsed } from "./period-elapsed";
 import { WorkedDuration } from "./worked-duration";
 
-// "Sua jornada hoje": estado, tempo trabalhado, início/pausas e atalho para acompanhar.
+// Tempo de trabalho do dia: estado, total trabalhado, período e atividade em andamento.
 const JourneyTodayCard = ({
   status,
   statusLabel,
   workedBaseMinutes,
   activeWorkStartedAtMs,
-  startLabel,
-  breaksLabel,
-  onPressTrack,
+  currentPeriod,
 }: JourneyTodayCardProps) => {
-  const theme = useTheme();
   const styles = journeyTodayCardVariants();
 
   return (
     <View className={styles.container()}>
       <View className={styles.header()}>
         <Text className={styles.title()} accessibilityRole="header">
-          Sua jornada hoje
+          Tempo de trabalho
         </Text>
         <JourneyStatusBadge status={status} label={statusLabel} />
       </View>
 
-      <View className={styles.hero()}>
-        <View className={styles.heroTexts()}>
-          <WorkedDuration baseMinutes={workedBaseMinutes} activeStartedAtMs={activeWorkStartedAtMs} />
-          <Text className={styles.workedCaption()}>de trabalho registrado</Text>
+      <WorkedDuration baseMinutes={workedBaseMinutes} activeStartedAtMs={activeWorkStartedAtMs} />
+
+      {currentPeriod ? (
+        <View className={styles.details()}>
+          <PeriodElapsed sinceLabel={currentPeriod.sinceLabel} startedAtMs={currentPeriod.startedAtMs} />
+
+          <Text className={styles.activityTitle()} numberOfLines={1}>
+            {currentPeriod.title}
+          </Text>
         </View>
-        <Ionicons name="stopwatch-outline" size={HERO_ICON_SIZE} color={theme.primary} />
-      </View>
-
-      <View className={styles.meta()}>
-        <JourneyMetaItem icon="log-in-outline" label={startLabel} />
-        <JourneyMetaItem icon="cafe-outline" label={breaksLabel} />
-      </View>
-
-      <Button title="Acompanhar jornada" icon="arrow-right" iconPosition="left" onPress={onPressTrack} />
+      ) : null}
     </View>
   );
 };
