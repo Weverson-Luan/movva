@@ -7,7 +7,7 @@ import type { ImageSourcePropType } from "react-native";
 import { useBrand } from "@/shared/brand/BrandProvider";
 import { brandAssets } from "@/shared/brand/brand-assets";
 import { useAppStore } from "@/shared/data/store/zustand/app/app-store";
-import { useNextEntryRoute } from "@/shared/hooks/use-next-entry-route";
+import { useNextEntryRoute } from "@/shared/presentation/routes/hooks/use-next-entry-route";
 
 type OnboardingSlideItem = {
   key: string;

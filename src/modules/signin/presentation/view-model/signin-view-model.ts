@@ -9,7 +9,8 @@ import { useForm } from "react-hook-form";
 import { useSignInMutation } from "@/modules/signin/presentation/hooks/queries/auth/use-signin-mutation";
 
 import { useUserStore } from "@/shared/data/store/zustand/user/user-store";
-import { useNextEntryRoute } from "@/shared/hooks/use-next-entry-route";
+import { useNextEntryRoute } from "@/shared/presentation/routes/hooks/use-next-entry-route";
+import { ROUTES } from "@/shared/presentation/routes/routes";
 
 // typings / schema
 import { type SignInFormData, signInSchema } from "./signin-schema";
@@ -40,7 +41,7 @@ const useSignInViewModel = () => {
   });
 
   const goToSignUp = () => {
-    router.push("/signin-up");
+    router.push(ROUTES.signinUp);
   };
 
   return {

@@ -4,7 +4,7 @@
 import { router } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
 import { useAppStore } from "@/shared/data/store/zustand/app/app-store";
-import { useNextEntryRoute } from "@/shared/hooks/use-next-entry-route";
+import { useNextEntryRoute } from "@/shared/presentation/routes/hooks/use-next-entry-route";
 
 type SyncStepStatus = "pending" | "running" | "done";
 

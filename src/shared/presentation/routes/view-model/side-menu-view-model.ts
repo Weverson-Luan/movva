@@ -6,8 +6,8 @@ import { router, usePathname } from "expo-router";
 import type { DrawerContentComponentProps } from "expo-router/drawer";
 import { useBrand } from "@/shared/brand/BrandProvider";
 import { useUserStore } from "@/shared/data/store/zustand/user/user-store";
+import { PRIVATE_ROUTE_KEYS, PRIVATE_ROUTES, type PrivateRoute, ROUTES } from "@/shared/presentation/routes/routes";
 import { showErrorToast } from "@/shared/utils/toast";
-import { PRIVATE_ROUTE_HREF, PRIVATE_ROUTE_PATH, type PrivateRoute } from "./private-routes";
 
 type SideMenuItem = {
   /** rota do item; a view escolhe o ícone por aqui */
@@ -16,28 +16,23 @@ type SideMenuItem = {
   isActive: boolean;
 };
 
-const MENU_ITEMS: { key: PrivateRoute; label: string }[] = [
-  { key: "dashboard", label: "Início" },
-  { key: "journey", label: "Resumo Jornada" },
-  { key: "documents", label: "Documentos" },
-];
-
 // Estado do menu lateral: usuário, itens com o ativo marcado e ações.
 const useSideMenuViewModel = ({ navigation }: DrawerContentComponentProps) => {
   const userName = useUserStore((state) => state.user?.name ?? "");
   const { supportEmail, tagline } = useBrand();
   const pathname = usePathname();
 
-  const items: SideMenuItem[] = MENU_ITEMS.map((item) => ({
-    ...item,
-    isActive: pathname === PRIVATE_ROUTE_PATH[item.key],
+  const items: SideMenuItem[] = PRIVATE_ROUTE_KEYS.map((key) => ({
+    key,
+    label: PRIVATE_ROUTES[key].menuLabel,
+    isActive: pathname === ROUTES[key],
   }));
 
   const onClose = () => navigation.closeDrawer();
 
   const onPressItem = (key: PrivateRoute) => {
     navigation.closeDrawer();
-    router.navigate(PRIVATE_ROUTE_HREF[key]);
+    router.navigate(ROUTES[key]);
   };
 
   // Sem app de e-mail o openURL falha: mostra o toast em vez de engolir o erro.

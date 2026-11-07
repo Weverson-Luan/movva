@@ -1,8 +1,8 @@
 /**
  * IMPORTS
  */
-import type { PrivateRoute } from "@/modules/navigation/presentation/view-model/private-routes";
-import type { SideMenuItem } from "@/modules/navigation/presentation/view-model/side-menu-view-model";
+import type { PrivateRoute } from "@/shared/presentation/routes/routes";
+import type { SideMenuItem } from "@/shared/presentation/routes/view-model/side-menu-view-model";
 
 type SideMenuProps = {
   /** nome do usuário; vira as iniciais do avatar */

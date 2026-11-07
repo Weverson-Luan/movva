@@ -61,7 +61,9 @@ function fileContext(relPath) {
     isFactory: /^src\/modules\/[^/]+\/factories\//.test(relPath) && !isSpec,
     isHttpInfra: relPath.startsWith("src/shared/data/infra/http/"),
     isComponent:
-      (relPath.startsWith("src/shared/components/") || /^src\/modules\/[^/]+\/components\//.test(relPath)) && !isSpec,
+      (relPath.startsWith("src/shared/components/") ||
+        /^src\/(modules|shared\/presentation)\/[^/]+\/components\//.test(relPath)) &&
+      !isSpec,
     isClientConfig: CLIENT_CONFIG.test(relPath),
   };
 }
@@ -79,7 +81,8 @@ function shouldScan(relPath) {
 
 const DATA_LAYER_IMPORT = /from\s+["']@\/(modules\/[^/"']+\/(domain|data|factories)\/|shared\/data\/)/;
 const HTTP_IMPORT = /from\s+["'](axios|@\/shared\/data\/infra\/http)/;
-const UI_IMPORT = /from\s+["'](@\/shared\/components\/|@\/modules\/[^/"']+\/components\/|[^"']*\.variants)/;
+const UI_IMPORT =
+  /from\s+["'](@\/shared\/components\/|@\/(modules|shared\/presentation)\/[^/"']+\/components\/|[^"']*\.variants)/;
 const JSX_MARKER = /<\/[A-Za-z][\w.]*>|<[A-Z][\w.]*(\s[^<>]*)?\/>/;
 const REACT_QUERY_HOOK = /\b(useQuery|useMutation|useInfiniteQuery|useSuspenseQuery)\s*\(/;
 const REACT_QUERY_IMPORT = /from\s+["'](@tanstack\/react-query|@\/modules\/[^/"']+\/presentation\/hooks\/)/;
@@ -376,7 +379,7 @@ const RULES = [
   {
     id: "SAFE_AREA_OUTSIDE_SCREEN",
     severity: "MINOR",
-    applies: (c) => c.isView || /^src\/modules\/[^/]+\/components\//.test(c.rel),
+    applies: (c) => c.isView || /^src\/(modules|shared\/presentation)\/[^/]+\/components\//.test(c.rel),
     line: /\buseSafeAreaInsets\b|<SafeAreaView\b|<KeyboardAvoidingView\b/,
     message: "Área segura/teclado manual na tela — use `<Screen>` (edges, scroll, keyboard)",
     source: `${S.claude} § Padrão de tela (obrigatório)`,
@@ -561,7 +564,8 @@ const FILE_RULES = [
     applies: (c) => c.isComponent && /\.tsx?$/.test(c.base),
     check: (_text, c) => {
       // Arquivo direto em components/ (ou components/ui/) em vez de components/<componente>/.
-      const loose = /^src\/(modules\/[^/]+\/components|shared\/components(\/ui)?)\/[^/]+\.tsx?$/.test(c.rel);
+      const loose =
+        /^src\/((modules|shared\/presentation)\/[^/]+\/components|shared\/components(\/ui)?)\/[^/]+\.tsx?$/.test(c.rel);
       if (loose) {
         return [{ message: "Componente solto — crie a pasta `components/<componente>/` com index.tsx + interface.ts" }];
       }

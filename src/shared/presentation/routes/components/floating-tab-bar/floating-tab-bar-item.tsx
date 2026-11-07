@@ -6,7 +6,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 
 import { useTheme } from "@/shared/brand/BrandProvider";
 
-import { ICON_BY_ROUTE } from "./constants";
+import { ROUTE_ICON } from "@/shared/presentation/routes/constants";
 import { floatingTabBarItemVariants } from "./floating-tab-bar.variants";
 // typings
 import type { FloatingTabBarItemProps } from "./interface";
@@ -25,7 +25,7 @@ const FloatingTabBarItem = ({ item, onPress }: FloatingTabBarItemProps) => {
       accessibilityState={{ selected: item.isFocused }}
     >
       <View className={styles.iconWrapper()}>
-        <Ionicons name={ICON_BY_ROUTE[item.key]} size={24} color={item.isFocused ? theme.primary : theme.text} />
+        <Ionicons name={ROUTE_ICON[item.key]} size={24} color={item.isFocused ? theme.primary : theme.text} />
       </View>
       <Text className={styles.label()}>{item.label}</Text>
     </TouchableOpacity>

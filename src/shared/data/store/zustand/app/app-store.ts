@@ -12,7 +12,7 @@ import { zustandStorage } from "@/shared/data/cache/mmkv/mmkv-storage";
 import type { AppStore } from "./interface";
 
 // Etapas da primeira entrada após o login (onboarding, sincronização), por aparelho.
-// Ordem do fluxo: @/shared/hooks/use-next-entry-route. Persistido no MMKV do cliente.
+// Ordem do fluxo: @/shared/presentation/routes/hooks/use-next-entry-route. Persistido no MMKV do cliente.
 const useAppStore = create<AppStore>()(
   persist(
     (set) => ({

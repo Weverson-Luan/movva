@@ -18,6 +18,8 @@ src/
     brand/brand.ts           lê a marca do cliente atual (expo-constants)
     brand/BrandProvider.tsx  useBrand, useTheme, useFeature, <Feature>
     components/ui/           componentes reutilizáveis (Input, InputControlled...)
+    presentation/routes/     navegação: routes.ts (caminhos), Drawer + tab bar flutuante,
+                             menu lateral e fluxo de entrada (use-next-entry-route)
     data/                    cliente HTTP (axios), storage (MMKV) e stores (zustand)
     interfaces/http/         tipos das requisições e respostas da API
 app.config.js      escolhe o cliente pela variável CLIENT

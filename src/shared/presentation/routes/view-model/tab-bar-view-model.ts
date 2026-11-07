@@ -2,7 +2,7 @@
  * IMPORTS
  */
 import type { BottomTabBarProps } from "expo-router/tabs";
-import { isPrivateRoute, type PrivateRoute } from "./private-routes";
+import { isPrivateRoute, PRIVATE_ROUTES, type PrivateRoute } from "@/shared/presentation/routes/routes";
 
 type TabBarItem = {
   /** rota da aba; a view escolhe o ícone por aqui */
@@ -11,22 +11,17 @@ type TabBarItem = {
   isFocused: boolean;
 };
 
-const TAB_LABEL: Record<PrivateRoute, string> = {
-  dashboard: "Início",
-  journey: "Jornada",
-  documents: "Documentos",
-};
-
 // Estado da tab bar flutuante a partir do navegador de abas.
 const useTabBarViewModel = ({ state, emitter, navigateToTab, insets }: BottomTabBarProps) => {
   const focusedName = state.routes[state.index]?.name;
 
   const items: TabBarItem[] = state.routes
-    .filter((route) => isPrivateRoute(route.name))
-    .map((route) => ({
-      key: route.name as PrivateRoute,
-      label: TAB_LABEL[route.name as PrivateRoute],
-      isFocused: route.name === focusedName,
+    .map((route) => route.name)
+    .filter(isPrivateRoute)
+    .map((key) => ({
+      key,
+      label: PRIVATE_ROUTES[key].tabLabel,
+      isFocused: key === focusedName,
     }));
 
   // Mesmo contrato da tab bar padrão: avisa o tabPress e só navega se ninguém impediu.

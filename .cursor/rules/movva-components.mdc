@@ -10,6 +10,10 @@ alwaysApply: false
 - Usado por mais de um módulo → `src/shared/components/ui/<componente>/`.
 - Usado só por um módulo → `src/modules/<m>/components/`.
 - Componente de um módulo que passou a ser usado por outro: mova para `shared`.
+- Navegação (Drawer, tab bar flutuante, menu lateral) → `src/shared/presentation/routes/`:
+  `routes.ts` é a fonte única dos caminhos (`ROUTES`) e das abas/itens do menu
+  (`PRIVATE_ROUTES`); os `_layout.tsx` de `src/app` só renderizam o navigator. Nada de
+  `router.push("/...")` com caminho escrito à mão: use `ROUTES.<nome>`.
 
 # Estrutura
 

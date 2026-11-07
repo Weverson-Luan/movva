@@ -1,8 +1,8 @@
 /**
  * IMPORTS
  */
-import type { PrivateRoute } from "@/modules/navigation/presentation/view-model/private-routes";
-import type { TabBarItem } from "@/modules/navigation/presentation/view-model/tab-bar-view-model";
+import type { PrivateRoute } from "@/shared/presentation/routes/routes";
+import type { TabBarItem } from "@/shared/presentation/routes/view-model/tab-bar-view-model";
 
 type FloatingTabBarProps = {
   items: TabBarItem[];
